@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="RythmPaperMapEditor.Views.CustomControls.Waveform"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RythmPaperMapEditor.Views.CustomControls"
+             mc:Ignorable="d"
+             x:Name="WaveformRenderer"
+             d:DesignHeight="200" d:DesignWidth="1200">
+    <Grid x:Name="Container" DataContext="{Binding ElementName=WaveformRenderer, Path=DataContext}">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+            <Grid x:Name="Grid">
+                <Rectangle Name="TimeIndicator" HorizontalAlignment="Left" Style="{StaticResource TimeIndicator}" />
+                <StackPanel x:Name="GridStack" Orientation="Horizontal" ZIndex="1000" />
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
