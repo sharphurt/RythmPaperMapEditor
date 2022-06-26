@@ -26,6 +26,14 @@ namespace RythmPaperMapEditor.Views.CustomControls
 
         private MainWindowViewModel _viewModel;
 
+        public TrackSettings TrackSettings
+        {
+            get { return (TrackSettings)GetValue(TrackSettingsProperty); }
+            set { SetValue(TrackSettingsProperty, value); }
+        }
+        public static readonly DependencyProperty TrackSettingsProperty =
+            DependencyProperty.Register("TrackSettings", typeof(object), typeof(Waveform), new PropertyMetadata(null));
+
         public Waveform()
         {
             InitializeComponent();
@@ -52,7 +60,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
             myRendererSettings.BottomHeight = 32;
 
             _audioLength = _viewModel.CurrentTrackLenght;
-            var trackLength = GenerateGrid(120, 1, 2.077);
+            var trackLength = GenerateGrid(TrackSettings);
             GridStack.Width = trackLength;
 
             myRendererSettings.Width = trackLength;
@@ -106,10 +114,10 @@ namespace RythmPaperMapEditor.Views.CustomControls
             Grid.Background = new ImageBrush(GetImageStream(image));
         }
 
-        public int GenerateGrid(int bpm, double scale, double offset)
+        public int GenerateGrid(TrackSettings settings)
         {
             var grid = GridStack;
-            var bpmInSeconds = bpm / scale / 60;
+            var bpmInSeconds = settings.BPM / (double) settings.Scale / 60;
             var gridElementsCount = (int)(_audioLength / bpmInSeconds);
             var elementGridWidth = 2;
             var marginBetween = 50;
@@ -125,7 +133,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
                 grid.Children.Add(element);
             }
 
-            GridStack.Margin = new Thickness((trackWidth / _audioLength) * offset, 0, 0, 0);
+            GridStack.Margin = new Thickness((trackWidth / _audioLength) * settings.Offset, 0, 0, 0);
 
             return trackWidth;
         }

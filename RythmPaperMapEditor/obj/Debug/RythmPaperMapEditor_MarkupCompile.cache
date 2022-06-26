@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\App.xaml
-151319158851
+15-1785927092
 51042428989
-15-296514211
+191172179525
 24663430717
-Resources\Images\Images.xaml;Resources\Styles\Buttons.xaml;Resources\Styles\Colors.xaml;Resources\Styles\Fonts.xaml;Resources\Styles\Inputs.xaml;Resources\Styles\Texts.xaml;Resources\Styles\WaveformStyles.xaml;Resources\xaml\Converters.xaml;Views\CustomControls\FloatNumericTextBox.xaml;Views\CustomControls\GridElement.xaml;Views\CustomControls\NumericTextBox.xaml;Views\CustomControls\PanelHeader.xaml;Views\CustomControls\Waveform.xaml;Views\Forms\MainWindow.xaml;Views\Forms\TrackSettingsForm.xaml;
+Resources\Images\Images.xaml;Resources\Styles\Buttons.xaml;Resources\Styles\Colors.xaml;Resources\Styles\Fonts.xaml;Resources\Styles\Inputs.xaml;Resources\Styles\Texts.xaml;Resources\Styles\WaveformStyles.xaml;Resources\xaml\Converters.xaml;Views\CustomControls\FloatNumericTextBox.xaml;Views\CustomControls\GridElement.xaml;Views\CustomControls\NumericTextBox.xaml;Views\CustomControls\PanelHeader.xaml;Views\CustomControls\Waveform.xaml;Views\Forms\MainWindow.xaml;Views\Forms\ImportTrackForm.xaml;
 
 False
 

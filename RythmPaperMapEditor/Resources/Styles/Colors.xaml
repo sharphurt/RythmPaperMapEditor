@@ -6,9 +6,18 @@
     <Color x:Key="Separator">#3F3F3F</Color>
     <Color x:Key="Text">#ffffff</Color>
 
+    <Color x:Key="PrimaryMouseOver">#748DE7</Color>
+    <Color x:Key="PrimaryMousePressed">#536DCC</Color>
+    <Color x:Key="PrimaryDisabled">#C6C6C6</Color>
+
+    <Color x:Key="SecondaryMouseOver">#6E6E6E</Color>
+    <Color x:Key="SecondaryMousePressed">#474747</Color>
+    <Color x:Key="SecondaryDisabled">#C6C6C6</Color>
+    
     <SolidColorBrush x:Key="FormBackgroundColor" Color="{DynamicResource FormBackground}" />
-    <SolidColorBrush x:Key="PrimaryColor" Color="{DynamicResource Primary}" />
+    <SolidColorBrush x:Key="PrimaryColor" Color="{StaticResource Primary}" />
     <SolidColorBrush x:Key="SecondaryColor" Color="{DynamicResource Secondary}" />
     <SolidColorBrush x:Key="SeparatorColor" Color="{DynamicResource Separator}" />
     <SolidColorBrush x:Key="TextColor" Color="{DynamicResource Text}" />
+    
 </ResourceDictionary>

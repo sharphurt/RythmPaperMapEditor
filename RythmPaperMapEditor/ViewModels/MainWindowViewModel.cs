@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 using NAudio.Wave;
 using RythmPaperMapEditor.Models;
+using RythmPaperMapEditor.Views.Forms;
 using RythmPaperMapEditor.Wrappers;
 
 namespace RythmPaperMapEditor.ViewModels
@@ -34,7 +35,7 @@ namespace RythmPaperMapEditor.ViewModels
         private WaveStream _waveStream;
 
         public event Action OnFileLoaded;
-        
+
         public WaveStream WaveStream
         {
             get => _waveStream;
@@ -110,6 +111,18 @@ namespace RythmPaperMapEditor.ViewModels
             }
         }
 
+        private TrackSettings _trackSettings;
+
+        public TrackSettings TrackSettings
+        {
+            get => _trackSettings;
+            set
+            {
+                _trackSettings = value;
+                OnPropertyChanged(nameof(TrackSettings));
+            }
+        }
+        
         public ICommand ExitApplicationCommand { get; set; }
 
         public ICommand RewindToStartCommand { get; set; }
@@ -161,6 +174,12 @@ namespace RythmPaperMapEditor.ViewModels
 
         private void InitializeAudioPlayer()
         {
+            if (_audioPlayer != null)
+            {
+                _audioPlayer.Stop();
+                _audioPlayer.Dispose();
+            }
+            
             _audioPlayer = new AudioPlayer(SelectedTrack.Filepath, CurrentVolume);
 
             _audioPlayer.OnPlaybackPause += HandlePlaybackPause;
@@ -173,22 +192,16 @@ namespace RythmPaperMapEditor.ViewModels
 
         private void OpenFile(object p)
         {
-            var ofd = new OpenFileDialog
-            {
-                Filter = "Audio files (*.wav, *.mp3, *.wma, *.ogg, *.flac) | *.wav; *.mp3; *.wma; *.ogg; *.flac"
-            };
-            var result = ofd.ShowDialog();
+            var openDialog = new ImportTrackForm();
+            var result = openDialog.ShowDialog();
             if (result == true)
             {
-                var friendlyName = ofd.SafeFileName.Remove(ofd.SafeFileName.Length - 4);
-                var track = new Track(ofd.FileName, friendlyName,
-                    new AudioFileReader(ofd.FileName).TotalTime.TotalSeconds);
-                SelectedTrack = track;
+                SelectedTrack = openDialog.Track;
+                TrackSettings = openDialog.TrackSettings;
+                
+                InitializeAudioPlayer();
+                OnFileLoaded?.Invoke();
             }
-
-            InitializeAudioPlayer();
-
-            OnFileLoaded?.Invoke();
         }
 
         public bool CanOpenFile(object p)
@@ -257,7 +270,7 @@ namespace RythmPaperMapEditor.ViewModels
             if (SelectedTrack == null)
                 return;
 
-            if (_playbackState == PlaybackState.Stopped)
+            if (_audioPlayer == null)
                 InitializeAudioPlayer();
 
             _audioPlayer.TogglePlayPause(CurrentVolume);

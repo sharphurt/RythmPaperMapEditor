@@ -40,7 +40,8 @@
         </Grid>
 
         <Grid Grid.Row="2">
-            <customControls:Waveform x:Name="Waveform" HorizontalAlignment="Left" />
+            <customControls:Waveform TrackSettings="{Binding TrackSettings, UpdateSourceTrigger=PropertyChanged}"
+                                     HorizontalAlignment="Left" />
         </Grid>
     </Grid>
 </Window>

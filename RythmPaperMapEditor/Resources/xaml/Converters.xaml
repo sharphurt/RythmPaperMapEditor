@@ -2,5 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:RythmPaperMapEditor.Converters">
     <converters:PlaybackStateToIconConverter x:Key="PlaybackStateToIconConverter" />
+    <converters:IntToStringConverter x:Key="IntToStringConverter" />
+    <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
 
 </ResourceDictionary>
