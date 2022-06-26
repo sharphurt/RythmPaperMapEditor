@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:customControls="clr-namespace:RythmPaperMapEditor.Views.CustomControls">
+    
+    <ControlTemplate x:Key="InputControlTemplate" TargetType="TextBox">
+        <Grid>
+            <Border
+                x:Name="InputBorder"
+                CornerRadius="3"
+                Padding="6"
+                BorderBrush="Transparent"
+                Background="{TemplateBinding Background}"
+                BorderThickness="0">
+                <ScrollViewer x:Name="PART_ContentHost" />
+            </Border>
+        </Grid>
+    </ControlTemplate>
+    
+    <Style x:Key="InputStyle" TargetType="customControls:NumericTextBox" BasedOn="{StaticResource SimpleTextStyle}">
+        <Setter Property="Height" Value="26" />
+        <Setter Property="Background" Value="{StaticResource SecondaryColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template" Value="{StaticResource InputControlTemplate}" />
+    </Style>
+    
+    <Style x:Key="FloatInputStyle" TargetType="customControls:FloatNumericTextBox" BasedOn="{StaticResource SimpleTextStyle}">
+        <Setter Property="Height" Value="26" />
+        <Setter Property="Background" Value="{StaticResource SecondaryColor}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template" Value="{StaticResource InputControlTemplate}" />
+    </Style>
+    
+</ResourceDictionary>

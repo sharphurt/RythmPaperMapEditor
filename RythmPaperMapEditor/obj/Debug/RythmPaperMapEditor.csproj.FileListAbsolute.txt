@@ -1,9 +1,7 @@
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\RythmPaperMapEditor.csproj.AssemblyReference.cache
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\RythmPaperMapEditor.csproj.SuggestedBindingRedirects.cache
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\Styles\Buttons.baml
-C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\Styles\Styles.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\Styles\WaveformStyles.baml
-C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\MainWindow.g.cs
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\App.g.cs
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\RythmPaperMapEditor_MarkupCompile.cache
@@ -25,7 +23,6 @@ C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Deb
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\App.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\xaml\Converters.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\Waveform.baml
-C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\MainWindow.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\RythmPaperMapEditor.g.resources
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\RythmPaperMapEditor.Properties.Resources.resources
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\RythmPaperMapEditor.csproj.GenerateResource.cache
@@ -45,3 +42,17 @@ C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Deb
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\RythmPaperMapEditor.exe.config
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\GridElement.g.cs
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\GridElement.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Forms\MainWindow.g.cs
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Forms\TrackSettingsForm.g.cs
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Forms\MainWindow.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Forms\TrackSettingsForm.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\Styles\Colors.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\Styles\Fonts.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\PanelHeader.g.cs
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\PanelHeader.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\Styles\Inputs.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\Styles\Texts.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\NumericTextBox.g.cs
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\NumericTextBox.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\FloatNumericTextBox.g.cs
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\FloatNumericTextBox.baml

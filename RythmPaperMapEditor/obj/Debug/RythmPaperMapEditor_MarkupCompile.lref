@@ -1,7 +1,12 @@
 ﻿
 FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\App.xaml;;
+FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Resources\Styles\Inputs.xaml;;
 FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Resources\xaml\Converters.xaml;;
+FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Views\CustomControls\FloatNumericTextBox.xaml;;
 FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Views\CustomControls\GridElement.xaml;;
+FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Views\CustomControls\NumericTextBox.xaml;;
+FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Views\CustomControls\PanelHeader.xaml;;
 FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Views\CustomControls\Waveform.xaml;;
-FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Views\MainWindow.xaml;;
+FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Views\Forms\MainWindow.xaml;;
+FC:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\Views\Forms\TrackSettingsForm.xaml;;
 

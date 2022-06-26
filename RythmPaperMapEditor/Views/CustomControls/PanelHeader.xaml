@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="RythmPaperMapEditor.Views.CustomControls.PanelHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:RythmPaperMapEditor.Views.CustomControls"
+             mc:Ignorable="d"
+             x:Name="PanelHeaderControl"
+             d:DesignHeight="29" d:DesignWidth="300" HorizontalAlignment="Stretch">
+    <StackPanel Orientation="Vertical">
+        <Grid HorizontalAlignment="Stretch" Margin="0,0,0,8" Height="21">
+            <Label
+                Margin="-3,0,0,0"
+                HorizontalAlignment="Left"
+                Content="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PanelHeader}}}"
+                Style="{StaticResource TextLableStyle}" Foreground="{StaticResource TextColor}" />
+            <ContentPresenter VerticalAlignment="Stretch" HorizontalAlignment="Right" Content="{Binding AdditionalContent, ElementName=PanelHeaderControl}" />
+        </Grid>
+        <Rectangle Height="2" HorizontalAlignment="Stretch" Fill="{StaticResource SeparatorColor}" />
+    </StackPanel>
+</UserControl>
