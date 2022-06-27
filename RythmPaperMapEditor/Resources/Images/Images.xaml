@@ -6,4 +6,6 @@
     <BitmapImage x:Key="PauseIcon" UriSource="pause.png" />
     <BitmapImage x:Key="StopIcon" UriSource="stop.png" />
     <BitmapImage x:Key="OpenIcon" UriSource="open.png" />
+    
+    <BitmapImage x:Key="Item1" UriSource="ellipse.png" />
 </ResourceDictionary>

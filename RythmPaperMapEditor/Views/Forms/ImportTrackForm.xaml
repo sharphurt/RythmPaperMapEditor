@@ -7,7 +7,7 @@
         xmlns:customControls="clr-namespace:RythmPaperMapEditor.Views.CustomControls"
         xmlns:viewModels="clr-namespace:RythmPaperMapEditor.ViewModels"
         mc:Ignorable="d"
-        Background="{StaticResource FormBackgroundColor}"
+        Background="{StaticResource PanelBackgroundColor}"
         Loaded="ImportTrackForm_OnLoaded"
         Title="Импорт аудио" Width="400" SizeToContent="Height" ResizeMode="CanMinimize">
     <Window.DataContext>
@@ -28,17 +28,17 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource SecondaryHeaderStyle}" Margin="0,0,0,8"
                        Content="Название" />
-                <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource TextLableStyle}" Margin="0,0,0,8"
+                <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource TextLabelStyle}" Margin="0,0,0,8"
                        Content="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Label Grid.Column="0" Grid.Row="1" Style="{StaticResource SecondaryHeaderStyle}" Margin="0,0,0,8"
                        Content="Путь" />
-                <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource TextLableStyle}" Margin="0,0,0,8"
+                <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource TextLabelStyle}" Margin="0,0,0,8"
                        Content="{Binding Path, UpdateSourceTrigger=PropertyChanged}" />
 
                 <Label Grid.Column="0" Grid.Row="2" Style="{StaticResource SecondaryHeaderStyle}"
                        Content="Длительность" />
-                <Label Grid.Column="1" Grid.Row="2" Style="{StaticResource TextLableStyle}"
+                <Label Grid.Column="1" Grid.Row="2" Style="{StaticResource TextLabelStyle}"
                        Content="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
 
@@ -59,7 +59,7 @@
                 <customControls:NumericTextBox Grid.Column="1" Grid.Row="0"
                                                Text="{Binding BPM, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntToStringConverter}, Mode=OneWayToSource}"
                                                Style="{StaticResource InputStyle}" />
-                <Label Grid.Column="2" Grid.Row="0" Margin="8,0,0,0" Style="{StaticResource TextLableStyle}"
+                <Label Grid.Column="2" Grid.Row="0" Margin="8,0,0,0" Style="{StaticResource TextLabelStyle}"
                        Content="уд/мин." />
 
                 <Label Grid.Column="0" Grid.Row="1" Style="{StaticResource SecondaryHeaderStyle}"
@@ -73,7 +73,7 @@
                                                     Text="{Binding Offset, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DoubleToStringConverter},
                                                     Mode=OneWayToSource}"
                                                     Style="{StaticResource FloatInputStyle}" />
-                <Label Grid.Column="2" Grid.Row="2" Margin="8,0,0,0" Style="{StaticResource TextLableStyle}"
+                <Label Grid.Column="2" Grid.Row="2" Margin="8,0,0,0" Style="{StaticResource TextLabelStyle}"
                        Content="сек." />
             </Grid>
 

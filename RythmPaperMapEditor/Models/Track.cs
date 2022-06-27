@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace RythmPaperMapEditor.Models
@@ -7,7 +8,7 @@ namespace RythmPaperMapEditor.Models
     {
         private string _friendlyName;
         private string _filepath;
-        private double _length;
+        private TimeSpan _time;
 
         public string FriendlyName
         {
@@ -31,24 +32,24 @@ namespace RythmPaperMapEditor.Models
             }
         }
 
-        public double Length
+        public TimeSpan Time
         {
-            get { return _length; }
+            get { return _time; }
             set
             {
-                if (value == _length) return;
-                _length = value;
-                OnPropertyChanged(nameof(Length));
+                if (value == _time) return;
+                _time = value;
+                OnPropertyChanged(nameof(Time));
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Track(string filepath, string friendlyName, double length)
+        public Track(string filepath, string friendlyName, TimeSpan time)
         {
             Filepath = filepath;
             FriendlyName = friendlyName;
-            Length = length;
+            Time = time;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

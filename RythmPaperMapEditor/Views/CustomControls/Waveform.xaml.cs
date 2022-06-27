@@ -31,8 +31,10 @@ namespace RythmPaperMapEditor.Views.CustomControls
             get { return (TrackSettings)GetValue(TrackSettingsProperty); }
             set { SetValue(TrackSettingsProperty, value); }
         }
+
         public static readonly DependencyProperty TrackSettingsProperty =
             DependencyProperty.Register("TrackSettings", typeof(object), typeof(Waveform), new PropertyMetadata(null));
+
 
         public Waveform()
         {
@@ -44,11 +46,12 @@ namespace RythmPaperMapEditor.Views.CustomControls
                 {
                     _viewModel = viewModel;
                     _viewModel.OnFileLoaded += GenerateTimeline;
+                    _viewModel.OnTrackSettingsUpdated += GenerateTimeline;
                 }
             };
         }
 
-        private void GenerateTimeline()
+        public void GenerateTimeline()
         {
             var rmsPeakProvider = new RmsPeakProvider(200); // e.g. 200
 
@@ -117,23 +120,21 @@ namespace RythmPaperMapEditor.Views.CustomControls
         public int GenerateGrid(TrackSettings settings)
         {
             var grid = GridStack;
-            var bpmInSeconds = settings.BPM / (double) settings.Scale / 60;
+            var bpmInSeconds = settings.BPM / (double)settings.Scale / 60;
             var gridElementsCount = (int)(_audioLength / bpmInSeconds);
-            var elementGridWidth = 2;
+            var elementGridWidth = (int) new TrackGridElementHolder().Width;
             var marginBetween = 50;
             var trackWidth = gridElementsCount * (elementGridWidth + marginBetween);
 
             for (var i = 0; i < gridElementsCount; i++)
             {
-                var element = new Button
-                {
-                    Width = elementGridWidth
-                };
+                var element = new TrackGridElementHolder();
                 element.Margin = new Thickness(0, 0, marginBetween, 0);
                 grid.Children.Add(element);
             }
 
-            GridStack.Margin = new Thickness((trackWidth / _audioLength) * settings.Offset, 0, 0, 0);
+            if (_audioLength != 0 && trackWidth != 0)
+                GridStack.Margin = new Thickness((trackWidth / _audioLength) * settings.Offset, 0, 0, 0);
 
             return trackWidth;
         }

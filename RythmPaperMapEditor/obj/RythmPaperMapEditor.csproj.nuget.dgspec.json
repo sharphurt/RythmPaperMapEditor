@@ -68,6 +68,10 @@
               "target": "Package",
               "version": "[2.1.0, )"
             },
+            "SharpGL.WPF": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[6.0.0, )"

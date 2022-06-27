@@ -59,7 +59,11 @@
         </Compile>
         <Compile Include="Converters\DoubleToStringConverter.cs" />
         <Compile Include="Converters\IntToStringConverter.cs" />
+        <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+        <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
         <Compile Include="Converters\PlaybackStateToIconConverter.cs" />
+        <Compile Include="Converters\TimeSpanToStringConverter.cs" />
+        <Compile Include="Enums\Enums.cs" />
         <Compile Include="Models\Track.cs" />
         <Compile Include="Models\TrackSettings.cs" />
         <Compile Include="RelayCommand.cs" />
@@ -71,11 +75,20 @@
         <Compile Include="Views\CustomControls\GridElement.xaml.cs">
           <DependentUpon>GridElement.xaml</DependentUpon>
         </Compile>
+        <Compile Include="Views\CustomControls\ItemCard.xaml.cs">
+          <DependentUpon>ItemCard.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Views\CustomControls\NumericTextBox.xaml.cs">
           <DependentUpon>NumericTextBox.xaml</DependentUpon>
         </Compile>
         <Compile Include="Views\CustomControls\PanelHeader.xaml.cs">
           <DependentUpon>PanelHeader.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\CustomControls\PeakIndicator.xaml.cs">
+          <DependentUpon>PeakIndicator.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\CustomControls\TrackGridElementHolder.xaml.cs">
+          <DependentUpon>TrackGridElementHolder.xaml</DependentUpon>
         </Compile>
         <Compile Include="Views\CustomControls\Waveform.xaml.cs">
           <DependentUpon>Waveform.xaml</DependentUpon>
@@ -117,8 +130,11 @@
       <Page Include="Resources\xaml\Converters.xaml" />
       <Page Include="Views\CustomControls\FloatNumericTextBox.xaml" />
       <Page Include="Views\CustomControls\GridElement.xaml" />
+      <Page Include="Views\CustomControls\ItemCard.xaml" />
       <Page Include="Views\CustomControls\NumericTextBox.xaml" />
       <Page Include="Views\CustomControls\PanelHeader.xaml" />
+      <Page Include="Views\CustomControls\PeakIndicator.xaml" />
+      <Page Include="Views\CustomControls\TrackGridElementHolder.xaml" />
       <Page Include="Views\CustomControls\Waveform.xaml" />
       <Page Include="Views\Forms\MainWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
@@ -131,6 +147,9 @@
       <Resource Include="Resources\Fonts\InterSemiBold.ttf" />
       <Resource Include="Resources\Fonts\InterLight.ttf" />
       <Content Include="Resources\Images\back.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\Images\ellipse.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Content Include="Resources\Images\pause.png">
@@ -158,6 +177,7 @@
       <PackageReference Include="NAudio.WaveFormRenderer" Version="2.0.0" />
       <PackageReference Include="NAudio.WinForms" Version="2.1.0" />
       <PackageReference Include="NAudio.WinMM" Version="2.1.0" />
+      <PackageReference Include="SharpGL.WPF" Version="3.1.1" />
       <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
       <PackageReference Include="System.Security.AccessControl" Version="4.7.0" />
       <PackageReference Include="System.Security.Principal.Windows" Version="4.7.0" />

@@ -40,7 +40,7 @@ namespace RythmPaperMapEditor.Wrappers
 
         private void PlaybackStopped(object sender, StoppedEventArgs e)
         {
-            Dispose();
+          //  Dispose();
             OnPlaybackStop?.Invoke();
         }
 

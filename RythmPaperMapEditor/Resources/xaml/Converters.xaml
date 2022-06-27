@@ -4,5 +4,8 @@
     <converters:PlaybackStateToIconConverter x:Key="PlaybackStateToIconConverter" />
     <converters:IntToStringConverter x:Key="IntToStringConverter" />
     <converters:DoubleToStringConverter x:Key="DoubleToStringConverter" />
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <converters:InvertedBoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter" />
+    <converters:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
 
 </ResourceDictionary>

@@ -35,6 +35,7 @@ namespace RythmPaperMapEditor.ViewModels
         private WaveStream _waveStream;
 
         public event Action OnFileLoaded;
+        public event Action OnTrackSettingsUpdated;
 
         public WaveStream WaveStream
         {
@@ -111,24 +112,68 @@ namespace RythmPaperMapEditor.ViewModels
             }
         }
 
-        private TrackSettings _trackSettings;
+        private TrackSettings _appliedTrackSettings;
 
-        public TrackSettings TrackSettings
+        private int _bpm;
+
+        public int BPM
         {
-            get => _trackSettings;
+            get => _bpm;
             set
             {
-                _trackSettings = value;
-                OnPropertyChanged(nameof(TrackSettings));
+                _bpm = value;
+                OnPropertyChanged(nameof(IsInvalidSettings));
+                OnPropertyChanged(nameof(BPM));
             }
         }
-        
+
+        private int _scale;
+
+        public int Scale
+        {
+            get => _scale;
+            set
+            {
+                _scale = value;
+                OnPropertyChanged(nameof(IsInvalidSettings));
+                OnPropertyChanged(nameof(Scale));
+            }
+        }
+
+        private double _offset;
+
+        public double Offset
+        {
+            get => _offset;
+            set
+            {
+                _offset = value;
+                OnPropertyChanged(nameof(IsInvalidSettings));
+                OnPropertyChanged(nameof(Offset));
+            }
+        }
+
+        public bool IsInvalidSettings => SelectedTrack == null;
+
+        public TrackSettings AppliedTrackSettings
+        {
+            get => _appliedTrackSettings;
+            set
+            {
+                _appliedTrackSettings = value;
+                OnPropertyChanged(nameof(AppliedTrackSettings));
+            }
+        }
+
+
         public ICommand ExitApplicationCommand { get; set; }
 
         public ICommand RewindToStartCommand { get; set; }
         public ICommand StartPlaybackCommand { get; set; }
         public ICommand StopPlaybackCommand { get; set; }
         public ICommand OpenFileCommand { get; set; }
+
+        public ICommand UpdateTrackSettingsCommand { get; set; }
 
         public ICommand TrackControlMouseDownCommand { get; set; }
         public ICommand TrackControlMouseUpCommand { get; set; }
@@ -145,6 +190,7 @@ namespace RythmPaperMapEditor.ViewModels
             if (Application.Current.MainWindow != null)
                 Application.Current.MainWindow.Closing += HandleWindowClosing;
 
+            AppliedTrackSettings = new TrackSettings(BPM, Scale, Offset);
             LoadCommands();
             InitializeUpdateTimer(1);
         }
@@ -166,10 +212,23 @@ namespace RythmPaperMapEditor.ViewModels
             StopPlaybackCommand = new RelayCommand(StopPlayback, CanStopPlayback);
             OpenFileCommand = new RelayCommand(OpenFile, CanOpenFile);
 
+            UpdateTrackSettingsCommand = new RelayCommand(UpdateTrackSettings, CanUpdateTrackSettings);
+
             TrackControlMouseDownCommand = new RelayCommand(TrackControlMouseDown, CanTrackControlMouseDown);
             TrackControlMouseUpCommand = new RelayCommand(TrackControlMouseUp, CanTrackControlMouseUp);
             VolumeControlValueChangedCommand =
                 new RelayCommand(VolumeControlValueChanged, CanVolumeControlValueChanged);
+        }
+
+        private bool CanUpdateTrackSettings(object obj)
+        {
+            return true;
+        }
+
+        private void UpdateTrackSettings(object obj)
+        {
+            AppliedTrackSettings = new TrackSettings(BPM, Scale, Offset);
+            OnTrackSettingsUpdated?.Invoke();
         }
 
         private void InitializeAudioPlayer()
@@ -179,7 +238,7 @@ namespace RythmPaperMapEditor.ViewModels
                 _audioPlayer.Stop();
                 _audioPlayer.Dispose();
             }
-            
+
             _audioPlayer = new AudioPlayer(SelectedTrack.Filepath, CurrentVolume);
 
             _audioPlayer.OnPlaybackPause += HandlePlaybackPause;
@@ -197,8 +256,11 @@ namespace RythmPaperMapEditor.ViewModels
             if (result == true)
             {
                 SelectedTrack = openDialog.Track;
-                TrackSettings = openDialog.TrackSettings;
-                
+                BPM = openDialog.TrackSettings.BPM;
+                Scale = openDialog.TrackSettings.Scale;
+                Offset = openDialog.TrackSettings.Offset;
+                AppliedTrackSettings = openDialog.TrackSettings;
+
                 InitializeAudioPlayer();
                 OnFileLoaded?.Invoke();
             }
@@ -230,6 +292,7 @@ namespace RythmPaperMapEditor.ViewModels
         private void HandlePlaybackStop()
         {
             PlaybackState = PlaybackState.Stopped;
+            _audioPlayer.SetPosition(0);
             CommandManager.InvalidateRequerySuggested();
             CurrentTrackPosition = 0;
         }

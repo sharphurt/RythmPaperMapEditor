@@ -13,11 +13,19 @@
         <Setter Property="Foreground" Value="{StaticResource TextColor}" />
     </Style>
     
-    <Style x:Key="TextLableStyle" TargetType="Label" BasedOn="{StaticResource SimpleTextStyle}">
+    <Style x:Key="TextLabelStyle" TargetType="Label" BasedOn="{StaticResource SimpleTextStyle}">
         <Setter Property="Height" Value="24" />
     </Style>
     
     <Style x:Key="SecondaryHeaderStyle" TargetType="Label" BasedOn="{StaticResource HeaderTextStyle}">
         <Setter Property="Height" Value="24" />
+    </Style>
+    
+    <Style x:Key="HintTextLableStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource InterLight}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Foreground" Value="{StaticResource TeritaryColor}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="TextAlignment" Value="Center" />
     </Style>
 </ResourceDictionary>

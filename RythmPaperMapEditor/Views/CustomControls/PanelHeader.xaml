@@ -8,13 +8,13 @@
              x:Name="PanelHeaderControl"
              d:DesignHeight="29" d:DesignWidth="300" HorizontalAlignment="Stretch">
     <StackPanel Orientation="Vertical">
-        <Grid HorizontalAlignment="Stretch" Margin="0,0,0,8" Height="21">
+        <Grid HorizontalAlignment="Stretch" Margin="0,0,0,8">
             <Label
                 Margin="-3,0,0,0"
                 HorizontalAlignment="Left"
                 Content="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:PanelHeader}}}"
-                Style="{StaticResource TextLableStyle}" Foreground="{StaticResource TextColor}" />
-            <ContentPresenter VerticalAlignment="Stretch" HorizontalAlignment="Right" Content="{Binding AdditionalContent, ElementName=PanelHeaderControl}" />
+                Style="{StaticResource TextLabelStyle}" />
+            <ContentPresenter VerticalAlignment="Stretch" Height="28" HorizontalAlignment="Right" Content="{Binding AdditionalContent, ElementName=PanelHeaderControl}" />
         </Grid>
         <Rectangle Height="2" HorizontalAlignment="Stretch" Fill="{StaticResource SeparatorColor}" />
     </StackPanel>

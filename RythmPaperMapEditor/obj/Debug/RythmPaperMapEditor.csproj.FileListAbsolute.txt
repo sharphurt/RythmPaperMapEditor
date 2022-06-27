@@ -56,3 +56,13 @@ C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Deb
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\FloatNumericTextBox.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Forms\ImportTrackForm.g.cs
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Forms\ImportTrackForm.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\PeakIndicator.g.cs
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\PeakIndicator.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpGL.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpGL.SceneGraph.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpGL.WPF.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Resources\Images\ellipse.png
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\ItemCard.g.cs
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\TrackGridElementHolder.g.cs
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\ItemCard.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\TrackGridElementHolder.baml

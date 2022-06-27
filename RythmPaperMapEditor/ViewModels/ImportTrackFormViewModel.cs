@@ -107,7 +107,7 @@ namespace RythmPaperMapEditor.ViewModels
                 Name = ofd.SafeFileName.Remove(ofd.SafeFileName.Length - 4);
                 var duration = new AudioFileReader(Path).TotalTime;
                 Duration = duration.ToString("g");
-                Track = new Track(Path, Name, duration.TotalSeconds);
+                Track = new Track(Path, Name, duration);
             }
             else
             {

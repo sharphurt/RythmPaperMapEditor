@@ -7,8 +7,8 @@
              mc:Ignorable="d"
              x:Name="WaveformRenderer"
              d:DesignHeight="200" d:DesignWidth="1200">
-    <Grid x:Name="Container" DataContext="{Binding ElementName=WaveformRenderer, Path=DataContext}">
-        <ScrollViewer HorizontalScrollBarVisibility="Auto">
+    <Grid x:Name="Container" Background="{StaticResource PanelBackgroundColor}" DataContext="{Binding ElementName=WaveformRenderer, Path=DataContext}">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <Grid x:Name="Grid">
                 <Rectangle Name="TimeIndicator" HorizontalAlignment="Left" Style="{StaticResource TimeIndicator}" />
                 <StackPanel x:Name="GridStack" Orientation="Horizontal" ZIndex="1000" />

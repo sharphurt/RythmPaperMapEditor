@@ -3,9 +3,13 @@
     <Color x:Key="FormBackground">#1B1B1B</Color>
     <Color x:Key="Primary">#5C79E2</Color>
     <Color x:Key="Secondary">#5E5E5E</Color>
-    <Color x:Key="Separator">#3F3F3F</Color>
+    <Color x:Key="Teritary">#747474</Color>
+    <Color x:Key="PanelBackground">#3E3E3E</Color>
+    <Color x:Key="Separator">#474747</Color>
     <Color x:Key="Text">#ffffff</Color>
 
+    <Color x:Key="TransparentWhite">#81FFFFFF</Color>
+    
     <Color x:Key="PrimaryMouseOver">#748DE7</Color>
     <Color x:Key="PrimaryMousePressed">#536DCC</Color>
     <Color x:Key="PrimaryDisabled">#C6C6C6</Color>
@@ -15,9 +19,13 @@
     <Color x:Key="SecondaryDisabled">#C6C6C6</Color>
     
     <SolidColorBrush x:Key="FormBackgroundColor" Color="{DynamicResource FormBackground}" />
+    <SolidColorBrush x:Key="PanelBackgroundColor" Color="{DynamicResource PanelBackground}" />
     <SolidColorBrush x:Key="PrimaryColor" Color="{StaticResource Primary}" />
     <SolidColorBrush x:Key="SecondaryColor" Color="{DynamicResource Secondary}" />
+    <SolidColorBrush x:Key="TeritaryColor" Color="{DynamicResource Teritary}" />
     <SolidColorBrush x:Key="SeparatorColor" Color="{DynamicResource Separator}" />
     <SolidColorBrush x:Key="TextColor" Color="{DynamicResource Text}" />
+    
+    <SolidColorBrush x:Key="TransparentWhiteColor" Color="{DynamicResource TransparentWhite}" />
     
 </ResourceDictionary>
