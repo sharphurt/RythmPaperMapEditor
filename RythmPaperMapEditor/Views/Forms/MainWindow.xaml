@@ -161,9 +161,6 @@
                                Content="{Binding SelectedTrack.Time, Converter={StaticResource TimeSpanToStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
                     </Grid>
                 </Grid>
-                <!--<Grid Grid.Row="4">
-                    <customControls:PeakIndicator />
-                </Grid>-->
             </Grid>
 
         </Grid>

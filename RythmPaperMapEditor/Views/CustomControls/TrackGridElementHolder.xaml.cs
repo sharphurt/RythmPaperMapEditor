@@ -18,11 +18,11 @@ namespace RythmPaperMapEditor.Views.CustomControls
         {
             if (e.Data.GetDataPresent("Object"))
             {
-                // These Effects values are used in the drag source's
-                // GiveFeedback event handler to determine which cursor to display.
-                if (e.KeyStates == DragDropKeyStates.ControlKey)
+                if ((e.KeyStates & DragDropKeyStates.ControlKey) == DragDropKeyStates.ControlKey)
                 {
                     e.Effects = DragDropEffects.Copy;
+                    SetState((ItemType) e.Data.GetData("Type"));
+                    e.Handled = true;
                 }
                 else
                 {

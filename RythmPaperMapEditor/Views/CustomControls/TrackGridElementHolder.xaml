@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:RythmPaperMapEditor.Views.CustomControls"
              mc:Ignorable="d"
              Drop="TrackGridElementHolder_OnDrop"
+             DragEnter="TrackGridElementHolder_OnDragOver"
              DragOver="TrackGridElementHolder_OnDragOver"
              MouseRightButtonUp="TrackGridElementHolder_OnMouseRightButtonUp"
              Background="Transparent"
