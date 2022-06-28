@@ -44,10 +44,6 @@ namespace RythmPaperMapEditor.Views.CustomControls
         float rquad = 0;
 
 
-        float Lerp(float firstFloat, float secondFloat, float by)
-        {
-            return firstFloat * (1 - by) + secondFloat * by;
-        }
 
         private void OpenGLControl_OnOpenGLDraw(object sender, OpenGLRoutedEventArgs args)
         {
@@ -64,7 +60,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
 
             gl.LoadIdentity();
             gl.Translate(-26f, 0.0f, -7.0f);
-            GlDrawBar(gl, origin, 52 * Lerp(lastValue, volume, 0.1f), 50, color);
+            GlDrawBar(gl, origin, 52 * Utils.Lerp(lastValue, volume, 0.1f), 50, color);
 
             //  Flush OpenGL.
             gl.Flush();

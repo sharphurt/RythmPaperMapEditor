@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -26,6 +27,15 @@ namespace RythmPaperMapEditor.Views.CustomControls
 
         private MainWindowViewModel _viewModel;
 
+        public bool AutoScroll
+        {
+            get { return (bool)GetValue(AutoScrollProperty); }
+            set { SetValue(AutoScrollProperty, value); }
+        }
+
+        public static readonly DependencyProperty AutoScrollProperty =
+            DependencyProperty.Register("AutoScroll", typeof(bool), typeof(Waveform), new PropertyMetadata(null));
+
         public TrackSettings TrackSettings
         {
             get { return (TrackSettings)GetValue(TrackSettingsProperty); }
@@ -34,7 +44,6 @@ namespace RythmPaperMapEditor.Views.CustomControls
 
         public static readonly DependencyProperty TrackSettingsProperty =
             DependencyProperty.Register("TrackSettings", typeof(object), typeof(Waveform), new PropertyMetadata(null));
-
 
         public Waveform()
         {
@@ -70,26 +79,27 @@ namespace RythmPaperMapEditor.Views.CustomControls
             var image = RenderInThread(_viewModel.SelectedTrack.Filepath, rmsPeakProvider, myRendererSettings);
             FinishRender(image);
 
-            var timer = new Timer();
-            timer.Interval = 1;
-            Console.WriteLine(timer.Interval);
-            timer.Elapsed += UpdateTimeIndicator;
-            timer.Start();
+            var updateIndicatorTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 1), DispatcherPriority.Render,
+                (sender, args) => UpdateTimeIndicator(null, null), Dispatcher.CurrentDispatcher);
+            updateIndicatorTimer.Start();
         }
 
         private void UpdateTimeIndicator(object sender, ElapsedEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(delegate
+            if (_viewModel.PlaybackState == PlaybackState.Stopped)
+                TimeIndicator.Margin = new Thickness(0);
+            else if (_viewModel.PlaybackState == PlaybackState.Playing)
             {
-                if (_viewModel.PlaybackState == PlaybackState.Stopped)
-                    TimeIndicator.Margin = new Thickness(0);
-                else if (_viewModel.PlaybackState == PlaybackState.Playing)
+                var currentPosition = (_viewModel.AudioPlayer.GetPosition().TotalMilliseconds /
+                                       _viewModel.AudioPlayer.GetLenght().TotalMilliseconds *
+                                       GridStack.Width);
+                TimeIndicator.Margin = new Thickness(currentPosition, 0, 0, 0);
+
+                if (AutoScroll)
                 {
-                    var currentPosition = (_viewModel.CurrentTrackPosition / _viewModel.CurrentTrackLenght *
-                                           GridStack.Width);
-                    TimeIndicator.Margin = new Thickness(currentPosition, 0, 0, 0);
+                    ScrollViewer.ScrollToHorizontalOffset(currentPosition - Container.ActualWidth / 2);
                 }
-            });
+            }
         }
 
         private Image RenderInThread(string path, IPeakProvider peakProvider, WaveFormRendererSettings settings)
@@ -122,7 +132,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
             var grid = GridStack;
             var bpmInSeconds = settings.BPM / (double)settings.Scale / 60;
             var gridElementsCount = (int)(_audioLength / bpmInSeconds);
-            var elementGridWidth = (int) new TrackGridElementHolder().Width;
+            var elementGridWidth = (int)new TrackGridElementHolder().Width;
             var marginBetween = 50;
             var trackWidth = gridElementsCount * (elementGridWidth + marginBetween);
 
@@ -159,6 +169,12 @@ namespace RythmPaperMapEditor.Views.CustomControls
             DeleteObject(bmpPt);
 
             return bitmapSource;
+        }
+
+        private void ScrollViewer_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && AutoScroll)
+                AutoScroll = false;
         }
     }
 }

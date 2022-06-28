@@ -37,6 +37,8 @@ namespace RythmPaperMapEditor.ViewModels
         public event Action OnFileLoaded;
         public event Action OnTrackSettingsUpdated;
 
+        public AudioPlayer AudioPlayer => _audioPlayer;
+
         public WaveStream WaveStream
         {
             get => _waveStream;
@@ -122,7 +124,7 @@ namespace RythmPaperMapEditor.ViewModels
             set
             {
                 _bpm = value;
-                OnPropertyChanged(nameof(IsInvalidSettings));
+                OnPropertyChanged(nameof(IsTrackLoaded));
                 OnPropertyChanged(nameof(BPM));
             }
         }
@@ -135,7 +137,7 @@ namespace RythmPaperMapEditor.ViewModels
             set
             {
                 _scale = value;
-                OnPropertyChanged(nameof(IsInvalidSettings));
+                OnPropertyChanged(nameof(IsTrackLoaded));
                 OnPropertyChanged(nameof(Scale));
             }
         }
@@ -148,12 +150,12 @@ namespace RythmPaperMapEditor.ViewModels
             set
             {
                 _offset = value;
-                OnPropertyChanged(nameof(IsInvalidSettings));
+                OnPropertyChanged(nameof(IsTrackLoaded));
                 OnPropertyChanged(nameof(Offset));
             }
         }
 
-        public bool IsInvalidSettings => SelectedTrack == null;
+        public bool IsTrackLoaded => SelectedTrack == null;
 
         public TrackSettings AppliedTrackSettings
         {
@@ -165,6 +167,17 @@ namespace RythmPaperMapEditor.ViewModels
             }
         }
 
+        private bool _isAutoscrollEnabled;
+
+        public bool IsAutoscrollEnabled
+        {
+            get => _isAutoscrollEnabled;
+            set
+            {
+                _isAutoscrollEnabled = value;
+                OnPropertyChanged(nameof(IsAutoscrollEnabled));
+            }
+        }
 
         public ICommand ExitApplicationCommand { get; set; }
 
@@ -178,6 +191,8 @@ namespace RythmPaperMapEditor.ViewModels
         public ICommand TrackControlMouseDownCommand { get; set; }
         public ICommand TrackControlMouseUpCommand { get; set; }
         public ICommand VolumeControlValueChangedCommand { get; set; }
+        
+        public ICommand SwitchAutoscrollHotkeyCommand { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -192,14 +207,14 @@ namespace RythmPaperMapEditor.ViewModels
 
             AppliedTrackSettings = new TrackSettings(BPM, Scale, Offset);
             LoadCommands();
-            InitializeUpdateTimer(1);
+        //    InitializeUpdateTimer(1);
         }
 
         private void InitializeUpdateTimer(int interval)
         {
             var timer = new System.Timers.Timer();
             timer.Interval = interval;
-            timer.Elapsed += HandleTimerOver;
+          //  timer.Elapsed += HandleTimerOver;
             timer.Start();
         }
 
@@ -218,8 +233,19 @@ namespace RythmPaperMapEditor.ViewModels
             TrackControlMouseUpCommand = new RelayCommand(TrackControlMouseUp, CanTrackControlMouseUp);
             VolumeControlValueChangedCommand =
                 new RelayCommand(VolumeControlValueChanged, CanVolumeControlValueChanged);
+            SwitchAutoscrollHotkeyCommand = new RelayCommand(SwitchAutoscroll, CanSwitchAutoscroll);
         }
 
+        private bool CanSwitchAutoscroll(object o)
+        {
+            return true;
+        }
+
+        private void SwitchAutoscroll(object o)
+        {
+            IsAutoscrollEnabled = !IsAutoscrollEnabled;
+        }
+        
         private bool CanUpdateTrackSettings(object obj)
         {
             return true;
@@ -244,7 +270,7 @@ namespace RythmPaperMapEditor.ViewModels
             _audioPlayer.OnPlaybackPause += HandlePlaybackPause;
             _audioPlayer.OnPlaybackResume += HandlePlaybackResume;
             _audioPlayer.OnPlaybackStop += HandlePlaybackStop;
-            CurrentTrackLenght = _audioPlayer.GetLenghtInSeconds();
+            CurrentTrackLenght = _audioPlayer.GetLenght().TotalSeconds;
 
             WaveStream = _audioPlayer.AudioFileReader;
         }
@@ -271,18 +297,21 @@ namespace RythmPaperMapEditor.ViewModels
             return true;
         }
 
+        /*
         private void UpdateSeekBar()
         {
             if (PlaybackState == PlaybackState.Playing)
             {
                 CurrentTrackPosition = _audioPlayer.GetPositionInSeconds();
             }
-        }
+        }*/
 
+        /*
         private void HandleTimerOver(object sender, System.Timers.ElapsedEventArgs e)
         {
             UpdateSeekBar();
         }
+        */
 
         private void HandleWindowClosing(object sender, CancelEventArgs e)
         {

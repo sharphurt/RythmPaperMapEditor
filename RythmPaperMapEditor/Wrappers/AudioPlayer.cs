@@ -93,19 +93,19 @@ namespace RythmPaperMapEditor.Wrappers
             AudioFileReader = null;
         }
 
-        public double GetLenghtInSeconds()
+        public TimeSpan GetLenght()
         {
             if (AudioFileReader != null)
             {
-                return AudioFileReader.TotalTime.TotalSeconds;
+                return AudioFileReader.TotalTime;
             }
 
-            return 0;
+            return TimeSpan.Zero;
         }
 
-        public double GetPositionInSeconds()
+        public TimeSpan GetPosition()
         {
-            return AudioFileReader != null ? AudioFileReader.CurrentTime.TotalSeconds : 0;
+            return AudioFileReader != null ? AudioFileReader.CurrentTime : TimeSpan.Zero;
         }
 
         public float GetVolume()

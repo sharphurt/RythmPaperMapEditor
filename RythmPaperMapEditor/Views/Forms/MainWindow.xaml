@@ -11,6 +11,9 @@
     <Window.DataContext>
         <viewModels:MainWindowViewModel OnFileLoaded="MainWindowViewModel_OnFileLoaded" />
     </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding SwitchAutoscrollHotkeyCommand}" Key="S" Modifiers="Shift"/>
+    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*" />
@@ -63,13 +66,13 @@
                         <customControls:PanelHeader.AdditionalContent>
                             <Button Command="{Binding UpdateTrackSettingsCommand}" Content="Применить"
                                     Style="{StaticResource SecondaryButton}"
-                                    Visibility="{Binding IsInvalidSettings,
+                                    Visibility="{Binding IsTrackLoaded,
                                     UpdateSourceTrigger=PropertyChanged,
                                     Converter={StaticResource BoolToVisibilityConverter}}" />
                         </customControls:PanelHeader.AdditionalContent>
                     </customControls:PanelHeader>
                     <Grid Grid.Row="1"
-                          Visibility="{Binding IsInvalidSettings, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
+                          Visibility="{Binding IsTrackLoaded, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
                           Margin="0,24,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100" />
@@ -120,7 +123,7 @@
                     <TextBlock Grid.Row="1" Text="Выберите или импортируйте трек" HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch" Style="{StaticResource HintTextLableStyle}"
                                Padding="0,20,0,0"
-                               Visibility="{Binding IsInvalidSettings, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
+                               Visibility="{Binding IsTrackLoaded, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
                 </Grid>
 
                 <Grid Grid.Row="2" Margin="16">
@@ -188,6 +191,7 @@
 
         <Grid Grid.Row="2" Background="{StaticResource PanelBackgroundColor}">
             <customControls:Waveform
+                AutoScroll="{Binding IsAutoscrollEnabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 TrackSettings="{Binding AppliedTrackSettings, UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left" />
         </Grid>
