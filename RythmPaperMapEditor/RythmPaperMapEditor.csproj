@@ -34,6 +34,9 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="CSCore">
+          <HintPath>Lib\CSCore.dll</HintPath>
+        </Reference>
         <Reference Include="mscorlib" />
         <Reference Include="System" />
         <Reference Include="System.Core" />
@@ -127,7 +130,7 @@
       <Page Include="Resources\Styles\Fonts.xaml" />
       <Page Include="Resources\Styles\Inputs.xaml" />
       <Page Include="Resources\Styles\Texts.xaml" />
-      <Page Include="Resources\Styles\WaveformStyles.xaml" />
+      <Page Include="Resources\Styles\TimelineStyles.xaml" />
       <Page Include="Resources\xaml\Converters.xaml" />
       <Page Include="Views\CustomControls\FloatNumericTextBox.xaml" />
       <Page Include="Views\CustomControls\GridElement.xaml" />
@@ -144,9 +147,13 @@
       <Page Include="Views\Forms\ImportTrackForm.xaml" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Resources\Images\timelineIndicatorHandle.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Resource Include="Resources\Fonts\InterRegular.ttf" />
       <Resource Include="Resources\Fonts\InterSemiBold.ttf" />
       <Resource Include="Resources\Fonts\InterLight.ttf" />
+      <Content Include="Lib\CSCore.dll" />
       <Content Include="Resources\Images\back.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
@@ -169,6 +176,7 @@
       </Content>
     </ItemGroup>
     <ItemGroup>
+      <PackageReference Include="Audion" Version="0.9.0" />
       <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
       <PackageReference Include="NAudio" Version="2.1.0" />
       <PackageReference Include="NAudio.Asio" Version="2.1.0" />

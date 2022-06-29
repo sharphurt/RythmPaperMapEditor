@@ -32,6 +32,10 @@
       "frameworks": {
         "net48": {
           "dependencies": {
+            "Audion": {
+              "target": "Package",
+              "version": "[0.9.0, )"
+            },
             "Microsoft.Win32.Registry": {
               "target": "Package",
               "version": "[4.7.0, )"

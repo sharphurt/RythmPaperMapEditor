@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.8": {
+      "Audion/0.9.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Audion.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Audion.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -241,6 +250,15 @@
       }
     },
     ".NETFramework,Version=v4.8/win": {
+      "Audion/0.9.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Audion.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Audion.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -458,6 +476,15 @@
       }
     },
     ".NETFramework,Version=v4.8/win-x64": {
+      "Audion/0.9.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Audion.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Audion.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -675,6 +702,15 @@
       }
     },
     ".NETFramework,Version=v4.8/win-x86": {
+      "Audion/0.9.0": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Audion.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Audion.dll": {}
+        }
+      },
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -893,6 +929,19 @@
     }
   },
   "libraries": {
+    "Audion/0.9.0": {
+      "sha512": "SjRykJsWSHtCHBBDsDEuFhBqlaZ3dyQr8zxMZeKrfVzZfTq75DkY6gTar2//XvXRcYaB8JDsMVuGwgetBQVjLA==",
+      "type": "package",
+      "path": "audion/0.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "audion.0.9.0.nupkg.sha512",
+        "audion.nuspec",
+        "content/Lib/CSCore.dll",
+        "lib/net40/Audion.dll"
+      ]
+    },
     "Microsoft.CSharp/4.7.0": {
       "sha512": "pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
       "type": "package",
@@ -1352,6 +1401,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
+      "Audion >= 0.9.0",
       "Microsoft.Win32.Registry >= 4.7.0",
       "NAudio >= 2.1.0",
       "NAudio.Asio >= 2.1.0",
@@ -1398,6 +1448,10 @@
     "frameworks": {
       "net48": {
         "dependencies": {
+          "Audion": {
+            "target": "Package",
+            "version": "[0.9.0, )"
+          },
           "Microsoft.Win32.Registry": {
             "target": "Package",
             "version": "[4.7.0, )"

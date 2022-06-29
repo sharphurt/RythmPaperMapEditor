@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "6x+VJofFjxgg0ZAfpGoV+RdMwouYEMCyiRj+sgBJinD+wXYRh3hNOXBY3uzGzzsZdWB+x1Af2PqpHqIJoSSFOA==",
+  "dgSpecHash": "L2EJvXrK+7mx/c+e4oPAtoD7Vd2zGr194qPafcFcfqBopOy8XIQPWsRT8zFREuCvYt0Uge7VNsmnBPTmoMgtEQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\sharphurt\\RiderProjects\\RythmPaperMapEditor\\RythmPaperMapEditor\\RythmPaperMapEditor.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\sharphurt\\.nuget\\packages\\audion\\0.9.0\\audion.0.9.0.nupkg.sha512",
     "C:\\Users\\sharphurt\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\sharphurt\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\sharphurt\\.nuget\\packages\\naudio\\2.1.0\\naudio.2.1.0.nupkg.sha512",

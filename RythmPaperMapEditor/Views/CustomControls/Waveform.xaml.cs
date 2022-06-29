@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Audion;
+using Audion.Visualization;
 using NAudio.Wave;
 using NAudio.WaveFormRenderer;
 using RythmPaperMapEditor.Models;
@@ -44,11 +47,11 @@ namespace RythmPaperMapEditor.Views.CustomControls
 
         public static readonly DependencyProperty TrackSettingsProperty =
             DependencyProperty.Register("TrackSettings", typeof(object), typeof(Waveform), new PropertyMetadata(null));
-
+        
         public Waveform()
         {
             InitializeComponent();
-
+      
             DataContextChanged += (sender, args) =>
             {
                 if (DataContext is MainWindowViewModel viewModel)
@@ -62,6 +65,24 @@ namespace RythmPaperMapEditor.Views.CustomControls
 
         public void GenerateTimeline()
         {
+            var output = new OutputSource();
+            output.Load(_viewModel.SelectedTrack.Filepath);
+            output.OutputDevice = Device.GetDefaultDevice();
+            
+            var timeline = new Timeline
+            {
+                Style = (Style) Application.Current.FindResource("TimelineStyle"),
+                Name = "Timaline",
+                FontSize = 12,
+                Height = 50,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Source = output
+            };
+            
+            TimelineContainer.Children.Clear();
+            TimelineContainer.Children.Add(timeline);
+            
             var rmsPeakProvider = new RmsPeakProvider(200); // e.g. 200
 
             var myRendererSettings = new StandardWaveFormRendererSettings();
@@ -93,8 +114,8 @@ namespace RythmPaperMapEditor.Views.CustomControls
                 var currentPosition = (_viewModel.AudioPlayer.GetPosition().TotalMilliseconds /
                                        _viewModel.AudioPlayer.GetLenght().TotalMilliseconds *
                                        GridStack.Width);
-                TimeIndicator.Margin = new Thickness(currentPosition, 0, 0, 0);
-
+                TimeIndicator.Margin = new Thickness(currentPosition - TimeIndicator.ActualWidth / 2, 0, 0, 0);
+                
                 if (AutoScroll)
                 {
                     ScrollViewer.ScrollToHorizontalOffset(currentPosition - Container.ActualWidth / 2);

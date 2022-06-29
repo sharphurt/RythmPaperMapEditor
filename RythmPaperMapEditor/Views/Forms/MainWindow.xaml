@@ -15,14 +15,17 @@
     <Window.InputBindings>
         <KeyBinding Command="{Binding SwitchAutoscrollHotkeyCommand}" Key="S" Modifiers="Shift"/>
     </Window.InputBindings>
-    <Grid>
+    <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="50 px" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3 px" />
+            <RowDefinition Height="50 px" MaxHeight="50" MinHeight="50" />
+            <RowDefinition Height="3 px" />
+            <RowDefinition Height="200" MinHeight="150" />
         </Grid.RowDefinitions>
 
-        <Grid Background="{StaticResource PanelBackgroundColor}">
+        
+        <Grid Grid.Row="0" Background="{StaticResource PanelBackgroundColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" MinWidth="200" />
                 <ColumnDefinition Width="3" />
@@ -46,7 +49,7 @@
 
             <Grid Grid.Column="4">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" MinHeight="200" />
                     <RowDefinition Height="3" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="3" />
@@ -163,21 +166,20 @@
                     </Grid>
                 </Grid>
             </Grid>
-
         </Grid>
 
-        <Grid Grid.Row="1" Background="{StaticResource PanelBackgroundColor}">
+        <Grid Grid.Row="2" Background="{StaticResource PanelBackgroundColor}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource TerytaryButtonStyle}" Command="{Binding RewindToStartCommand}">
+                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding RewindToStartCommand}">
                     <Image Source="{StaticResource BackToStartIcon}" />
                 </Button>
 
-                <Button Style="{StaticResource TerytaryButtonStyle}" Command="{Binding StartPlaybackCommand}">
+                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding StartPlaybackCommand}">
                     <Image
                         Source="{Binding PlaybackState, Converter={StaticResource PlaybackStateToIconConverter}, UpdateSourceTrigger=PropertyChanged}" />
                 </Button>
 
-                <Button Style="{StaticResource TerytaryButtonStyle}" Command="{Binding StopPlaybackCommand}">
+                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding StopPlaybackCommand}">
                     <Image Source="{StaticResource StopIcon}" />
                 </Button>
             </StackPanel>
@@ -187,11 +189,21 @@
             </Button>
         </Grid>
 
-        <Grid Grid.Row="2" Background="{StaticResource PanelBackgroundColor}">
+        <Grid Grid.Row="4" Background="{StaticResource PanelBackgroundColor}">
             <customControls:Waveform
                 AutoScroll="{Binding IsAutoscrollEnabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 TrackSettings="{Binding AppliedTrackSettings, UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left" />
         </Grid>
+        
+        
+        <Rectangle Grid.Row="1" Fill="{StaticResource FormBackgroundColor}"
+                      Height="3" 
+                      VerticalAlignment="Top"
+                      HorizontalAlignment="Stretch" />
+        <Rectangle Grid.Row="3" Fill="{StaticResource FormBackgroundColor}"
+                   Height="3" 
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Stretch" />
     </Grid>
 </Window>

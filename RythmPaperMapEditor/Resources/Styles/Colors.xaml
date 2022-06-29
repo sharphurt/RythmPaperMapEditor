@@ -18,6 +18,8 @@
     <Color x:Key="SecondaryMousePressed">#474747</Color>
     <Color x:Key="SecondaryDisabled">#C6C6C6</Color>
     
+    <Color x:Key="TimelineIndicator">Yellow</Color>
+    
     <SolidColorBrush x:Key="FormBackgroundColor" Color="{DynamicResource FormBackground}" />
     <SolidColorBrush x:Key="PanelBackgroundColor" Color="{DynamicResource PanelBackground}" />
     <SolidColorBrush x:Key="PrimaryColor" Color="{StaticResource Primary}" />
@@ -27,5 +29,7 @@
     <SolidColorBrush x:Key="TextColor" Color="{DynamicResource Text}" />
     
     <SolidColorBrush x:Key="TransparentWhiteColor" Color="{DynamicResource TransparentWhite}" />
+    
+    <SolidColorBrush x:Key="TimelineIndicatorColor" Color="{DynamicResource TimelineIndicator}" />
     
 </ResourceDictionary>

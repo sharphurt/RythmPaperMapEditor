@@ -29,7 +29,7 @@ namespace RythmPaperMapEditor.ViewModels
 
         private string _title;
         private double _currentTrackLenght;
-        private double _currentTrackPosition;
+        private TimeSpan _currentTrackPosition;
         private float _currentVolume;
 
         private WaveStream _waveStream;
@@ -92,15 +92,9 @@ namespace RythmPaperMapEditor.ViewModels
             }
         }
 
-        public double CurrentTrackPosition
+        public TimeSpan CurrentTrackPosition
         {
-            get => _currentTrackPosition;
-            set
-            {
-                if (value.Equals(_currentTrackPosition)) return;
-                _currentTrackPosition = value;
-                OnPropertyChanged(nameof(CurrentTrackPosition));
-            }
+            get => AudioPlayer.GetPosition();
         }
 
         public Track SelectedTrack
@@ -323,7 +317,6 @@ namespace RythmPaperMapEditor.ViewModels
             PlaybackState = PlaybackState.Stopped;
             _audioPlayer.SetPosition(0);
             CommandManager.InvalidateRequerySuggested();
-            CurrentTrackPosition = 0;
         }
 
         private void HandlePlaybackResume()
@@ -391,7 +384,9 @@ namespace RythmPaperMapEditor.ViewModels
         {
             if (_audioPlayer == null) return;
 
+            /*
             _audioPlayer.SetPosition(CurrentTrackPosition);
+            */
             _audioPlayer.Play(NAudio.Wave.PlaybackState.Paused, CurrentVolume);
         }
 
