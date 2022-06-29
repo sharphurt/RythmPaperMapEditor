@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RythmPaperMapEditor"
         xmlns:viewModels="clr-namespace:RythmPaperMapEditor.ViewModels"
         xmlns:customControls="clr-namespace:RythmPaperMapEditor.Views.CustomControls"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
     <Window.DataContext>
@@ -165,18 +166,18 @@
 
         </Grid>
 
-        <Grid Grid.Row="1" Background="Black">
-            <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource PlayerControlButton}" Command="{Binding RewindToStartCommand}">
+        <Grid Grid.Row="1" Background="{StaticResource PanelBackgroundColor}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource TerytaryButtonStyle}" Command="{Binding RewindToStartCommand}">
                     <Image Source="{StaticResource BackToStartIcon}" />
                 </Button>
 
-                <Button Style="{StaticResource PlayerControlButton}" Command="{Binding StartPlaybackCommand}">
+                <Button Style="{StaticResource TerytaryButtonStyle}" Command="{Binding StartPlaybackCommand}">
                     <Image
                         Source="{Binding PlaybackState, Converter={StaticResource PlaybackStateToIconConverter}, UpdateSourceTrigger=PropertyChanged}" />
                 </Button>
 
-                <Button Style="{StaticResource PlayerControlButton}" Command="{Binding StopPlaybackCommand}">
+                <Button Style="{StaticResource TerytaryButtonStyle}" Command="{Binding StopPlaybackCommand}">
                     <Image Source="{StaticResource StopIcon}" />
                 </Button>
             </StackPanel>

@@ -51,10 +51,10 @@ namespace RythmPaperMapEditor.Views.CustomControls
             }
         }
 
-        /*protected override void OnGiveFeedback(GiveFeedbackEventArgs e)
+        protected override void OnGiveFeedback(GiveFeedbackEventArgs e)
         {
             base.OnGiveFeedback(e);
-
+            
             if (e.Effects.HasFlag(DragDropEffects.Copy))
             {
                 Mouse.SetCursor(Cursors.Cross);
@@ -69,6 +69,6 @@ namespace RythmPaperMapEditor.Views.CustomControls
             }
 
             e.Handled = true;
-        }*/
+        }
     }
 }

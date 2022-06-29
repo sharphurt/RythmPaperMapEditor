@@ -66,3 +66,11 @@ C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Deb
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\TrackGridElementHolder.g.cs
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\ItemCard.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\TrackGridElementHolder.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpVectors.Converters.Wpf.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpVectors.Core.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpVectors.Css.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpVectors.Dom.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpVectors.Model.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpVectors.Rendering.Gdi.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpVectors.Rendering.Wpf.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\SharpVectors.Runtime.Wpf.dll
