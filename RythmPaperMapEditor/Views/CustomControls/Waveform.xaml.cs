@@ -125,12 +125,13 @@ namespace RythmPaperMapEditor.Views.CustomControls
         private void OnNoteAdded(Note note)
         {
             _notes.Add(note);
+            Console.WriteLine($"Added on {note.Time}");
             NotesListChanged?.Invoke(_notes);
         }
 
         private void OnNoteRemoved(int timeIndex)
         {
-            _notes = _notes.Where(note => note.Time == timeIndex).ToList();
+            _notes = _notes.Where(note => note.Time != timeIndex).ToList();
             NotesListChanged?.Invoke(_notes);
         }
 

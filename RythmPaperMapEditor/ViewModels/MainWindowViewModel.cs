@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -256,7 +257,10 @@ namespace RythmPaperMapEditor.ViewModels
 
         private bool CanSaveNotesList(object o)
         {
-            return _notes?.Count > 0;
+            /*
+            Console.WriteLine(_notes != null && _notes.Count > 0);
+            */
+            return _notes != null && _notes.Count > 0;
         }
 
         private void SaveNotesList(object o)
@@ -267,7 +271,7 @@ namespace RythmPaperMapEditor.ViewModels
 
             if (result == true)
             {
-                File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(_notes));
+                File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(_notes.OrderBy(note => note.Time)));
             }
         }
         

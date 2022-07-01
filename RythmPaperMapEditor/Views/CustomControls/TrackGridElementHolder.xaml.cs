@@ -59,7 +59,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
 
         private void SetState(NoteType type)
         {
-            if (type == NoteType.None)
+            if (_containsNote && type == NoteType.None)
             {
                 NoteRemoved?.Invoke(_index);
                 _containsNote = false;
