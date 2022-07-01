@@ -39,8 +39,6 @@ C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Deb
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\NAudio.WaveFormRenderer.dll
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\System.Drawing.Common.dll
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\RythmPaperMapEditor.exe.config
-C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\GridElement.g.cs
-C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\GridElement.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Forms\MainWindow.g.cs
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Forms\MainWindow.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\Styles\Colors.baml
@@ -65,7 +63,9 @@ C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Deb
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\TrackGridElementHolder.g.cs
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\ItemCard.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\CustomControls\TrackGridElementHolder.baml
-C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Audion.dll
-C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\CSCore.dll
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Resources\Images\timelineIndicatorHandle.png
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Resources\Styles\TimelineStyles.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Timeline.g.cs
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Timeline.baml
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Resources\Images\save.png
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Newtonsoft.Json.dll

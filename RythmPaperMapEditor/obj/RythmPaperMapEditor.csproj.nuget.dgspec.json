@@ -32,10 +32,6 @@
       "frameworks": {
         "net48": {
           "dependencies": {
-            "Audion": {
-              "target": "Package",
-              "version": "[0.9.0, )"
-            },
             "Microsoft.Win32.Registry": {
               "target": "Package",
               "version": "[4.7.0, )"
@@ -71,6 +67,10 @@
             "NAudio.WinMM": {
               "target": "Package",
               "version": "[2.1.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             },
             "SharpGL.WPF": {
               "target": "Package",

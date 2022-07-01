@@ -8,8 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/save.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/timelineindicatorhandle.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("lib/cscore.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/back.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/ellipse.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/pause.png")]

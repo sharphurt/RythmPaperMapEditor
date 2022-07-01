@@ -117,11 +117,11 @@ namespace RythmPaperMapEditor.Wrappers
             return 1;
         }
 
-        public void SetPosition(double value)
+        public void SetPosition(TimeSpan value)
         {
             if (AudioFileReader != null)
             {
-                AudioFileReader.CurrentTime = TimeSpan.FromSeconds(value);
+                AudioFileReader.CurrentTime = value;
             }
         }
 

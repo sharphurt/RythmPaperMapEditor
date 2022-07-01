@@ -3,38 +3,24 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using RythmPaperMapEditor.Enums;
+using RythmPaperMapEditor.Models;
 
 namespace RythmPaperMapEditor.Views.CustomControls
 {
     public partial class ItemCard : UserControl
     {
-        public string Text
-        {
-            get { return (string)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
-        }
+        public string Text { get; }
 
-        public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(ItemCard), new PropertyMetadata(null));
+        public NoteType NoteType { get; }
 
-        public ItemType Type
-        {
-            get { return (ItemType)GetValue(ItemTypeProperty); }
-            set { SetValue(ItemTypeProperty, value); }
-        }
-
-        public static readonly DependencyProperty ItemTypeProperty =
-            DependencyProperty.Register("Type", typeof(ItemType), typeof(ItemCard),
-                new PropertyMetadata(SetIcon));
-
-        public ItemCard()
+        public ItemCard(NoteType noteType)
         {
             InitializeComponent();
-        }
 
-        private static void SetIcon(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((ItemCard)d).Icon.Source = (BitmapImage) Application.Current.Resources[e.NewValue.ToString()];
+            NoteType = noteType;
+            Text = noteType.ToString();
+
+            Icon.Source = (BitmapImage)Application.Current.Resources[Data.Data.NoteIcons[noteType]];
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -44,7 +30,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
             {
                 DataObject data = new DataObject();
                 data.SetData("Text", Text);
-                data.SetData("Type", Type);
+                data.SetData("NoteType", NoteType);
                 data.SetData("Object", this);
 
                 DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
@@ -54,7 +40,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
         protected override void OnGiveFeedback(GiveFeedbackEventArgs e)
         {
             base.OnGiveFeedback(e);
-            
+
             if (e.Effects.HasFlag(DragDropEffects.Copy))
             {
                 Mouse.SetCursor(Cursors.Cross);

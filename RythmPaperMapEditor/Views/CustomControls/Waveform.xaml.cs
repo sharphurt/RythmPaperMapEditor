@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Timers;
@@ -11,8 +13,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Audion;
-using Audion.Visualization;
 using NAudio.Wave;
 using NAudio.WaveFormRenderer;
 using RythmPaperMapEditor.Models;
@@ -21,14 +21,17 @@ using Color = System.Drawing.Color;
 using Image = System.Drawing.Image;
 using Pen = System.Drawing.Pen;
 using PlaybackState = RythmPaperMapEditor.ViewModels.PlaybackState;
+using Point = System.Drawing.Point;
 
 namespace RythmPaperMapEditor.Views.CustomControls
 {
     public partial class Waveform : UserControl
     {
-        private double _audioLength;
-
         private MainWindowViewModel _viewModel;
+
+        private List<Note> _notes;
+
+        public event Action<List<Note>> NotesListChanged;
 
         public bool AutoScroll
         {
@@ -47,11 +50,13 @@ namespace RythmPaperMapEditor.Views.CustomControls
 
         public static readonly DependencyProperty TrackSettingsProperty =
             DependencyProperty.Register("TrackSettings", typeof(object), typeof(Waveform), new PropertyMetadata(null));
-        
+
         public Waveform()
         {
             InitializeComponent();
-      
+
+            _notes = new List<Note>();
+
             DataContextChanged += (sender, args) =>
             {
                 if (DataContext is MainWindowViewModel viewModel)
@@ -59,46 +64,43 @@ namespace RythmPaperMapEditor.Views.CustomControls
                     _viewModel = viewModel;
                     _viewModel.OnFileLoaded += GenerateTimeline;
                     _viewModel.OnTrackSettingsUpdated += GenerateTimeline;
+                    _viewModel.RegisterNotesListChangedEventHandler(this);
                 }
             };
         }
 
         public void GenerateTimeline()
         {
-            var output = new OutputSource();
-            output.Load(_viewModel.SelectedTrack.Filepath);
-            output.OutputDevice = Device.GetDefaultDevice();
-            
-            var timeline = new Timeline
-            {
-                Style = (Style) Application.Current.FindResource("TimelineStyle"),
-                Name = "Timaline",
-                FontSize = 12,
-                Height = 50,
-                VerticalAlignment = VerticalAlignment.Top,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                Source = output
-            };
-            
-            TimelineContainer.Children.Clear();
-            TimelineContainer.Children.Add(timeline);
-            
             var rmsPeakProvider = new RmsPeakProvider(200); // e.g. 200
 
-            var myRendererSettings = new StandardWaveFormRendererSettings();
-            myRendererSettings.BottomPeakPen = new Pen(Color.CornflowerBlue);
-            myRendererSettings.TopPeakPen = new Pen(Color.CornflowerBlue);
-            myRendererSettings.BackgroundColor = Color.Empty;
-            myRendererSettings.TopHeight = 32;
-            myRendererSettings.BottomHeight = 32;
+            var myRendererSettings = new StandardWaveFormRendererSettings
+            {
+                BottomPeakPen = new Pen(Color.CornflowerBlue),
+                TopPeakPen = new Pen(Color.CornflowerBlue),
+                BackgroundColor = Color.Empty,
+                TopHeight = 32,
+                BottomHeight = 32
+            };
 
-            _audioLength = _viewModel.CurrentTrackLenght;
             var trackLength = GenerateGrid(TrackSettings);
             GridStack.Width = trackLength;
 
-            myRendererSettings.Width = trackLength;
+            myRendererSettings.Width = trackLength / 2;
             var image = RenderInThread(_viewModel.SelectedTrack.Filepath, rmsPeakProvider, myRendererSettings);
-            FinishRender(image);
+
+            GridStackContainer.Background = new ImageBrush(GetImageStream(image));
+
+            var timeline = new Timeline
+            {
+                FontSize = 12,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+            };
+
+            timeline.DrawTimeline(_viewModel.AudioPlayer.GetLenght(), trackLength);
+
+            TimelineContainer.Children.Clear();
+            TimelineContainer.Children.Add(timeline);
 
             var updateIndicatorTimer = new DispatcherTimer(new TimeSpan(0, 0, 0, 0, 1), DispatcherPriority.Render,
                 (sender, args) => UpdateTimeIndicator(null, null), Dispatcher.CurrentDispatcher);
@@ -109,18 +111,45 @@ namespace RythmPaperMapEditor.Views.CustomControls
         {
             if (_viewModel.PlaybackState == PlaybackState.Stopped)
                 TimeIndicator.Margin = new Thickness(0);
-            else if (_viewModel.PlaybackState == PlaybackState.Playing)
+            else
             {
-                var currentPosition = (_viewModel.AudioPlayer.GetPosition().TotalMilliseconds /
-                                       _viewModel.AudioPlayer.GetLenght().TotalMilliseconds *
-                                       GridStack.Width);
-                TimeIndicator.Margin = new Thickness(currentPosition - TimeIndicator.ActualWidth / 2, 0, 0, 0);
-                
+                SetTimelineIndicatorPosition();
+
                 if (AutoScroll)
                 {
-                    ScrollViewer.ScrollToHorizontalOffset(currentPosition - Container.ActualWidth / 2);
+                    DoAutoscroll();
                 }
             }
+        }
+
+        private void OnNoteAdded(Note note)
+        {
+            _notes.Add(note);
+            NotesListChanged?.Invoke(_notes);
+        }
+
+        private void OnNoteRemoved(int timeIndex)
+        {
+            _notes = _notes.Where(note => note.Time == timeIndex).ToList();
+            NotesListChanged?.Invoke(_notes);
+        }
+
+        private void DoAutoscroll()
+        {
+            var currentPosition = (_viewModel.AudioPlayer.GetPosition().TotalMilliseconds /
+                                   _viewModel.AudioPlayer.GetLenght().TotalMilliseconds *
+                                   GridStack.Width);
+
+            ScrollViewer.ScrollToHorizontalOffset(currentPosition - Container.ActualWidth / 2);
+        }
+
+        private void SetTimelineIndicatorPosition()
+        {
+            var currentPosition = (_viewModel.AudioPlayer.GetPosition().TotalMilliseconds /
+                                   _viewModel.AudioPlayer.GetLenght().TotalMilliseconds *
+                                   GridStack.Width);
+
+            TimeIndicator.Margin = new Thickness(currentPosition - TimeIndicator.ActualWidth / 2, 0, 0, 0);
         }
 
         private Image RenderInThread(string path, IPeakProvider peakProvider, WaveFormRendererSettings settings)
@@ -142,30 +171,33 @@ namespace RythmPaperMapEditor.Views.CustomControls
             return image;
         }
 
-        private void FinishRender(Image image)
-        {
-            Grid.Width = image.Width;
-            Grid.Background = new ImageBrush(GetImageStream(image));
-        }
-
         public int GenerateGrid(TrackSettings settings)
         {
-            var grid = GridStack;
-            var bpmInSeconds = settings.BPM / (double)settings.Scale / 60;
-            var gridElementsCount = (int)(_audioLength / bpmInSeconds);
-            var elementGridWidth = (int)new TrackGridElementHolder().Width;
+            var audioLength = _viewModel.AudioPlayer.GetLenght().TotalMinutes;
+            var bpm = settings.BPM * (double)settings.Scale;
+            var gridElementsCount = (int)(audioLength * bpm) + 1;
+            var elementGridWidth = (int)new TrackGridElementHolder(0).Width;
             var marginBetween = 50;
             var trackWidth = gridElementsCount * (elementGridWidth + marginBetween);
 
             for (var i = 0; i < gridElementsCount; i++)
             {
-                var element = new TrackGridElementHolder();
-                element.Margin = new Thickness(0, 0, marginBetween, 0);
-                grid.Children.Add(element);
+                var element = new TrackGridElementHolder(i)
+                {
+                    Margin = new Thickness(0, 0, marginBetween, 0)
+                };
+
+                element.NoteAdded += OnNoteAdded;
+                element.NoteRemoved += OnNoteRemoved;
+
+                GridStack.Children.Add(element);
             }
 
-            if (_audioLength != 0 && trackWidth != 0)
-                GridStack.Margin = new Thickness((trackWidth / _audioLength) * settings.Offset, 0, 0, 0);
+            if (audioLength != 0 && trackWidth != 0)
+            {
+                var margin = (trackWidth / _viewModel.AudioPlayer.GetLenght().TotalSeconds) * settings.Offset;
+                GridStack.Margin = new Thickness(margin - elementGridWidth / 2f, 0, 0, 0);
+            }
 
             return trackWidth;
         }
@@ -185,7 +217,6 @@ namespace RythmPaperMapEditor.Views.CustomControls
                     Int32Rect.Empty,
                     BitmapSizeOptions.FromEmptyOptions());
 
-            //freeze bitmapSource and clear memory to avoid memory leaks
             bitmapSource.Freeze();
             DeleteObject(bmpPt);
 
@@ -196,6 +227,18 @@ namespace RythmPaperMapEditor.Views.CustomControls
         {
             if (e.LeftButton == MouseButtonState.Pressed && AutoScroll)
                 AutoScroll = false;
+        }
+
+        private void SetTimelineIndicatorToPoint(System.Windows.Point point)
+        {
+            var totalSeconds = _viewModel.AudioPlayer.GetLenght().TotalMilliseconds;
+            var x = (ScrollViewer.ContentHorizontalOffset + point.X) / GridStack.ActualWidth;
+            _viewModel.CurrentTrackPosition = TimeSpan.FromMilliseconds(x * totalSeconds);
+        }
+
+        private void TimelineContainer_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            SetTimelineIndicatorToPoint(e.GetPosition(this));
         }
     }
 }

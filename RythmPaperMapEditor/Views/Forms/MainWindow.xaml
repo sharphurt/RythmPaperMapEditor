@@ -13,18 +13,18 @@
         <viewModels:MainWindowViewModel OnFileLoaded="MainWindowViewModel_OnFileLoaded" />
     </Window.DataContext>
     <Window.InputBindings>
-        <KeyBinding Command="{Binding SwitchAutoscrollHotkeyCommand}" Key="S" Modifiers="Shift"/>
+        <KeyBinding Command="{Binding SwitchAutoscrollHotkeyCommand}" Key="S" Modifiers="Shift" />
     </Window.InputBindings>
     <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="3 px" />
-            <RowDefinition Height="50 px" MaxHeight="50" MinHeight="50" />
-            <RowDefinition Height="3 px" />
-            <RowDefinition Height="200" MinHeight="150" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="3" />
+            <RowDefinition Height="51 px" MaxHeight="50" MinHeight="50" />
+            <RowDefinition Height="3" />
+            <RowDefinition Height="*" MinHeight="150" />
         </Grid.RowDefinitions>
 
-        
+
         <Grid Grid.Row="0" Background="{StaticResource PanelBackgroundColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" MinWidth="200" />
@@ -40,10 +40,18 @@
                           HorizontalAlignment="Stretch" />
 
             <Grid Grid.Column="2">
-                <WrapPanel ItemWidth="90" ItemHeight="120">
+                <WrapPanel x:Name="NoteItemsContainer" ItemWidth="100" Margin="16" ItemHeight="130">
+                    <WrapPanel.Resources>
+                        <Style TargetType="customControls:ItemCard">
+                            <Setter Property="Padding" Value="0,0,12,12" />
+                        </Style>
+                    </WrapPanel.Resources>
+                    <!--
                     <customControls:ItemCard Text='Card1' Type="Item1" />
                     <customControls:ItemCard Text='Card1' Type="Item1" />
                     <customControls:ItemCard Text='Card1' Type="Item1" />
+                    <customControls:ItemCard Text='Card1' Type="Item1" />
+                -->
                 </WrapPanel>
             </Grid>
 
@@ -51,7 +59,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" MinHeight="200" />
                     <RowDefinition Height="3" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" MinHeight="200" />
                     <RowDefinition Height="3" />
                     <RowDefinition Height="*" MaxHeight="100" />
                 </Grid.RowDefinitions>
@@ -169,6 +177,9 @@
         </Grid>
 
         <Grid Grid.Row="2" Background="{StaticResource PanelBackgroundColor}">
+            <TextBlock Margin="16,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Style="{StaticResource TimeTextLableStyle}"
+                       Text="{Binding CurrentTrackPosition, Converter={StaticResource TimeSpanToStringConverter}, UpdateSourceTrigger=PropertyChanged, TargetNullValue='0:00:00.000'}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding RewindToStartCommand}">
                     <Image Source="{StaticResource BackToStartIcon}" />
@@ -183,10 +194,17 @@
                     <Image Source="{StaticResource StopIcon}" />
                 </Button>
             </StackPanel>
-            <Button Style="{StaticResource PlayerControlButton}" HorizontalAlignment="Right"
-                    Command="{Binding OpenFileCommand}">
-                <Image Source="{StaticResource OpenIcon}" />
-            </Button>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Style="{StaticResource TeritaryButtonStyle}" Margin="0,0,16,0"
+                        Command="{Binding OpenFileCommand}">
+                    <Image Source="{StaticResource OpenIcon}" />
+                </Button>
+                <Button Style="{StaticResource TeritaryButtonStyle}" Margin="0,0,16,0"
+                        Command="{Binding SaveNotesListCommand}">
+                    <Image Source="{StaticResource SaveIcon}" />
+                </Button>
+            </StackPanel>
+
         </Grid>
 
         <Grid Grid.Row="4" Background="{StaticResource PanelBackgroundColor}">
@@ -195,15 +213,11 @@
                 TrackSettings="{Binding AppliedTrackSettings, UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left" />
         </Grid>
-        
-        
-        <Rectangle Grid.Row="1" Fill="{StaticResource FormBackgroundColor}"
-                      Height="3" 
-                      VerticalAlignment="Top"
+
+
+        <GridSplitter Grid.Row="1" Background="{StaticResource FormBackgroundColor}"
+                      VerticalAlignment="Stretch"
                       HorizontalAlignment="Stretch" />
-        <Rectangle Grid.Row="3" Fill="{StaticResource FormBackgroundColor}"
-                   Height="3" 
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Stretch" />
+        <Rectangle Grid.Row="3" Fill="{StaticResource FormBackgroundColor}" />
     </Grid>
 </Window>

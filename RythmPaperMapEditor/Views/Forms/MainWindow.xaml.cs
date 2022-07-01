@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows;
 using RythmPaperMapEditor.ViewModels;
+using RythmPaperMapEditor.Views.CustomControls;
 
 namespace RythmPaperMapEditor.Views.Forms
 {
@@ -12,6 +13,12 @@ namespace RythmPaperMapEditor.Views.Forms
         public MainWindow()
         {
             InitializeComponent();
+
+            foreach (var key in Data.Data.NoteIcons.Keys)
+            {
+                var noteCard = new ItemCard(key);
+                NoteItemsContainer.Children.Add(noteCard);
+            }
         }
 
         private void MainWindowViewModel_OnFileLoaded()

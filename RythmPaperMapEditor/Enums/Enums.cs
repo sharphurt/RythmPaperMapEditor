@@ -1,8 +1,21 @@
 ﻿namespace RythmPaperMapEditor.Enums
 {
-    public enum ItemType
+    public enum NoteType
     {
         None,
-        Item1
+        NoteDefault
+    }
+
+    public enum Sex
+    {
+        Male,
+        Female
+    }
+
+    public enum Country
+    {
+        Russia,
+        Ukraine, 
+        Germany
     }
 }

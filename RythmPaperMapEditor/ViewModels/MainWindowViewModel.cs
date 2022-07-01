@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -7,7 +9,9 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
 using NAudio.Wave;
+using Newtonsoft.Json;
 using RythmPaperMapEditor.Models;
+using RythmPaperMapEditor.Views.CustomControls;
 using RythmPaperMapEditor.Views.Forms;
 using RythmPaperMapEditor.Wrappers;
 
@@ -94,7 +98,12 @@ namespace RythmPaperMapEditor.ViewModels
 
         public TimeSpan CurrentTrackPosition
         {
-            get => AudioPlayer.GetPosition();
+            get => AudioPlayer?.GetPosition() ?? TimeSpan.Zero;
+            set
+            {
+                AudioPlayer.SetPosition(value);
+                OnPropertyChanged(nameof(CurrentTrackPosition));
+            }
         }
 
         public Track SelectedTrack
@@ -185,11 +194,14 @@ namespace RythmPaperMapEditor.ViewModels
         public ICommand TrackControlMouseDownCommand { get; set; }
         public ICommand TrackControlMouseUpCommand { get; set; }
         public ICommand VolumeControlValueChangedCommand { get; set; }
-        
-        public ICommand SwitchAutoscrollHotkeyCommand { get; set; }
 
+        public ICommand SwitchAutoscrollHotkeyCommand { get; set; }
+        
+        public ICommand SaveNotesListCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private List<Note> _notes;
 
         public MainWindowViewModel()
         {
@@ -201,15 +213,25 @@ namespace RythmPaperMapEditor.ViewModels
 
             AppliedTrackSettings = new TrackSettings(BPM, Scale, Offset);
             LoadCommands();
-        //    InitializeUpdateTimer(1);
+            InitializeUpdateTimer(1);
         }
 
         private void InitializeUpdateTimer(int interval)
         {
             var timer = new System.Timers.Timer();
             timer.Interval = interval;
-          //  timer.Elapsed += HandleTimerOver;
+            timer.Elapsed += (sender, args) => OnPropertyChanged(nameof(CurrentTrackPosition));
             timer.Start();
+        }
+
+        public void RegisterNotesListChangedEventHandler(Waveform waveform)
+        {
+            waveform.NotesListChanged += WaveformOnNotesListChanged;
+        }
+
+        private void WaveformOnNotesListChanged(List<Note> obj)
+        {
+            _notes = obj;
         }
 
         private void LoadCommands()
@@ -228,8 +250,27 @@ namespace RythmPaperMapEditor.ViewModels
             VolumeControlValueChangedCommand =
                 new RelayCommand(VolumeControlValueChanged, CanVolumeControlValueChanged);
             SwitchAutoscrollHotkeyCommand = new RelayCommand(SwitchAutoscroll, CanSwitchAutoscroll);
+
+            SaveNotesListCommand = new RelayCommand(SaveNotesList, CanSaveNotesList);
         }
 
+        private bool CanSaveNotesList(object o)
+        {
+            return _notes?.Count > 0;
+        }
+
+        private void SaveNotesList(object o)
+        {
+            var sfd = new SaveFileDialog();
+            sfd.Filter = "Json file|*.json";
+            var result = sfd.ShowDialog();
+
+            if (result == true)
+            {
+                File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(_notes));
+            }
+        }
+        
         private bool CanSwitchAutoscroll(object o)
         {
             return true;
@@ -239,7 +280,7 @@ namespace RythmPaperMapEditor.ViewModels
         {
             IsAutoscrollEnabled = !IsAutoscrollEnabled;
         }
-        
+
         private bool CanUpdateTrackSettings(object obj)
         {
             return true;
@@ -291,22 +332,6 @@ namespace RythmPaperMapEditor.ViewModels
             return true;
         }
 
-        /*
-        private void UpdateSeekBar()
-        {
-            if (PlaybackState == PlaybackState.Playing)
-            {
-                CurrentTrackPosition = _audioPlayer.GetPositionInSeconds();
-            }
-        }*/
-
-        /*
-        private void HandleTimerOver(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            UpdateSeekBar();
-        }
-        */
-
         private void HandleWindowClosing(object sender, CancelEventArgs e)
         {
             _audioPlayer?.Dispose();
@@ -315,7 +340,7 @@ namespace RythmPaperMapEditor.ViewModels
         private void HandlePlaybackStop()
         {
             PlaybackState = PlaybackState.Stopped;
-            _audioPlayer.SetPosition(0);
+            _audioPlayer.SetPosition(TimeSpan.Zero);
             CommandManager.InvalidateRequerySuggested();
         }
 
@@ -342,7 +367,7 @@ namespace RythmPaperMapEditor.ViewModels
 
         private void RewindToStart(object p)
         {
-            _audioPlayer.SetPosition(0);
+            _audioPlayer.SetPosition(TimeSpan.Zero);
         }
 
         private bool CanRewindToStart(object p)

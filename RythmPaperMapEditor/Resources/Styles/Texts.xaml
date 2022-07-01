@@ -28,4 +28,12 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="TextAlignment" Value="Center" />
     </Style>
+    
+    <Style x:Key="TimeTextLableStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource InterLight}" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="TextAlignment" Value="Center" />
+    </Style>
 </ResourceDictionary>

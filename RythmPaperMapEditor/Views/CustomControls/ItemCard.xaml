@@ -7,13 +7,15 @@
              mc:Ignorable="d"
              AllowDrop="True"
              d:DesignHeight="120" d:DesignWidth="90">
-    <Grid Background="{StaticResource SecondaryColor}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
-        </Grid.RowDefinitions>
-        <Image Grid.Row="0" x:Name="Icon" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-        <Label Grid.Row="1"
-               Content="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
-    </Grid>
+    <Border Background="{StaticResource SecondaryColor}" CornerRadius="6">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" x:Name="Icon" Margin="24" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            <Label Grid.Row="1" Style="{StaticResource TextLabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Content="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
+        </Grid>
+    </Border>
 </UserControl>

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:RythmPaperMapEditor.Views.CustomControls"
-             xmlns:visualization="clr-namespace:Audion.Visualization;assembly=Audion"
              mc:Ignorable="d"
              x:Name="WaveformRenderer"
              d:DesignHeight="200" d:DesignWidth="1200">
@@ -13,13 +12,19 @@
         <ScrollViewer HorizontalScrollBarVisibility="Auto" MouseMove="ScrollViewer_OnMouseMove" x:Name="ScrollViewer"
                       VerticalScrollBarVisibility="Disabled">
             <Grid x:Name="Grid">
-                <Grid x:Name="TimelineContainer" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30" Background="{StaticResource FormBackgroundColor}" />
-                <Grid x:Name="TimeIndicator" HorizontalAlignment="Left" Width="12" Margin="-6, 0,0,0">
+                <Grid x:Name="TimelineContainer" MouseLeftButtonDown="TimelineContainer_OnMouseLeftButtonDown" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30"
+                      Background="{StaticResource FormBackgroundColor}" />
+
+                <Grid x:Name="GridStackContainer" Margin="0,30,0,0">
+                    <StackPanel x:Name="GridStack" Orientation="Horizontal" VerticalAlignment="Stretch"
+                                                                HorizontalAlignment="Left" />
+                </Grid>
+
+                <Grid x:Name="TimeIndicator" HorizontalAlignment="Left" Width="12" Margin="-6,0,0,0">
                     <Rectangle HorizontalAlignment="Center" Style="{StaticResource TimeIndicator}" />
                     <Image Source="{StaticResource TimelineIdicatorHandle}" Width="12" HorizontalAlignment="Center"
                            VerticalAlignment="Top" />
                 </Grid>
-                <StackPanel x:Name="GridStack" Orientation="Horizontal" ZIndex="1000" />
             </Grid>
         </ScrollViewer>
     </Grid>

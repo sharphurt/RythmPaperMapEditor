@@ -66,7 +66,10 @@
         <Compile Include="Converters\InvertedBoolToVisibilityConverter.cs" />
         <Compile Include="Converters\PlaybackStateToIconConverter.cs" />
         <Compile Include="Converters\TimeSpanToStringConverter.cs" />
+        <Compile Include="Data\Data.cs" />
         <Compile Include="Enums\Enums.cs" />
+        <Compile Include="Models\Note.cs" />
+        <Compile Include="Models\NoteParameters.cs" />
         <Compile Include="Models\Track.cs" />
         <Compile Include="Models\TrackSettings.cs" />
         <Compile Include="RelayCommand.cs" />
@@ -75,9 +78,6 @@
         <Compile Include="ViewModels\MainWindowViewModel.cs" />
         <Compile Include="Views\CustomControls\FloatNumericTextBox.xaml.cs">
           <DependentUpon>FloatNumericTextBox.xaml</DependentUpon>
-        </Compile>
-        <Compile Include="Views\CustomControls\GridElement.xaml.cs">
-          <DependentUpon>GridElement.xaml</DependentUpon>
         </Compile>
         <Compile Include="Views\CustomControls\ItemCard.xaml.cs">
           <DependentUpon>ItemCard.xaml</DependentUpon>
@@ -103,6 +103,9 @@
         </Compile>
         <Compile Include="Views\Forms\ImportTrackForm.xaml.cs">
           <DependentUpon>ImportTrackForm.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\Timeline.xaml.cs">
+          <DependentUpon>Timeline.xaml</DependentUpon>
         </Compile>
         <Compile Include="Wrappers\AudioPlayer.cs" />
     </ItemGroup>
@@ -133,7 +136,6 @@
       <Page Include="Resources\Styles\TimelineStyles.xaml" />
       <Page Include="Resources\xaml\Converters.xaml" />
       <Page Include="Views\CustomControls\FloatNumericTextBox.xaml" />
-      <Page Include="Views\CustomControls\GridElement.xaml" />
       <Page Include="Views\CustomControls\ItemCard.xaml" />
       <Page Include="Views\CustomControls\NumericTextBox.xaml" />
       <Page Include="Views\CustomControls\PanelHeader.xaml" />
@@ -145,15 +147,18 @@
         <SubType>Designer</SubType>
       </Page>
       <Page Include="Views\Forms\ImportTrackForm.xaml" />
+      <Page Include="Views\Timeline.xaml" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Resources\Images\save.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Resources\Images\timelineIndicatorHandle.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
       <Resource Include="Resources\Fonts\InterRegular.ttf" />
       <Resource Include="Resources\Fonts\InterSemiBold.ttf" />
       <Resource Include="Resources\Fonts\InterLight.ttf" />
-      <Content Include="Lib\CSCore.dll" />
       <Content Include="Resources\Images\back.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
@@ -176,7 +181,6 @@
       </Content>
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="Audion" Version="0.9.0" />
       <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
       <PackageReference Include="NAudio" Version="2.1.0" />
       <PackageReference Include="NAudio.Asio" Version="2.1.0" />
@@ -186,6 +190,7 @@
       <PackageReference Include="NAudio.WaveFormRenderer" Version="2.0.0" />
       <PackageReference Include="NAudio.WinForms" Version="2.1.0" />
       <PackageReference Include="NAudio.WinMM" Version="2.1.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
       <PackageReference Include="SharpGL.WPF" Version="3.1.1" />
       <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
       <PackageReference Include="System.Security.AccessControl" Version="4.7.0" />

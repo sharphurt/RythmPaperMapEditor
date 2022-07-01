@@ -2,15 +2,6 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.8": {
-      "Audion/0.9.0": {
-        "type": "package",
-        "compile": {
-          "lib/net40/Audion.dll": {}
-        },
-        "runtime": {
-          "lib/net40/Audion.dll": {}
-        }
-      },
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -150,6 +141,15 @@
           "lib/netstandard2.0/NAudio.WinMM.dll": {}
         }
       },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
       "SharpGL/3.1.1": {
         "type": "package",
         "compile": {
@@ -250,15 +250,6 @@
       }
     },
     ".NETFramework,Version=v4.8/win": {
-      "Audion/0.9.0": {
-        "type": "package",
-        "compile": {
-          "lib/net40/Audion.dll": {}
-        },
-        "runtime": {
-          "lib/net40/Audion.dll": {}
-        }
-      },
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -388,6 +379,15 @@
           "lib/netstandard2.0/NAudio.WinMM.dll": {}
         }
       },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        }
+      },
       "SharpGL/3.1.1": {
         "type": "package",
         "compile": {
@@ -476,15 +476,6 @@
       }
     },
     ".NETFramework,Version=v4.8/win-x64": {
-      "Audion/0.9.0": {
-        "type": "package",
-        "compile": {
-          "lib/net40/Audion.dll": {}
-        },
-        "runtime": {
-          "lib/net40/Audion.dll": {}
-        }
-      },
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -612,6 +603,15 @@
         },
         "runtime": {
           "lib/netstandard2.0/NAudio.WinMM.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
         }
       },
       "SharpGL/3.1.1": {
@@ -702,15 +702,6 @@
       }
     },
     ".NETFramework,Version=v4.8/win-x86": {
-      "Audion/0.9.0": {
-        "type": "package",
-        "compile": {
-          "lib/net40/Audion.dll": {}
-        },
-        "runtime": {
-          "lib/net40/Audion.dll": {}
-        }
-      },
       "Microsoft.CSharp/4.7.0": {
         "type": "package",
         "frameworkAssemblies": [
@@ -838,6 +829,15 @@
         },
         "runtime": {
           "lib/netstandard2.0/NAudio.WinMM.dll": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {}
         }
       },
       "SharpGL/3.1.1": {
@@ -929,19 +929,6 @@
     }
   },
   "libraries": {
-    "Audion/0.9.0": {
-      "sha512": "SjRykJsWSHtCHBBDsDEuFhBqlaZ3dyQr8zxMZeKrfVzZfTq75DkY6gTar2//XvXRcYaB8JDsMVuGwgetBQVjLA==",
-      "type": "package",
-      "path": "audion/0.9.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "audion.0.9.0.nupkg.sha512",
-        "audion.nuspec",
-        "content/Lib/CSCore.dll",
-        "lib/net40/Audion.dll"
-      ]
-    },
     "Microsoft.CSharp/4.7.0": {
       "sha512": "pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
       "type": "package",
@@ -1173,6 +1160,33 @@
         "naudio.winmm.nuspec"
       ]
     },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
     "SharpGL/3.1.1": {
       "sha512": "tLTsMAl0XMjLhVK++ga65tObn/8IyPEfZ9i+icELcAPJ92mgB/DllVlfDBNJOP5T3C4GuT6YEZn3CVR11GH2qQ==",
       "type": "package",
@@ -1401,7 +1415,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
-      "Audion >= 0.9.0",
       "Microsoft.Win32.Registry >= 4.7.0",
       "NAudio >= 2.1.0",
       "NAudio.Asio >= 2.1.0",
@@ -1411,6 +1424,7 @@
       "NAudio.WaveFormRenderer >= 2.0.0",
       "NAudio.WinForms >= 2.1.0",
       "NAudio.WinMM >= 2.1.0",
+      "Newtonsoft.Json >= 13.0.1",
       "SharpGL.WPF >= 3.1.1",
       "System.Drawing.Common >= 6.0.0",
       "System.Security.AccessControl >= 4.7.0",
@@ -1448,10 +1462,6 @@
     "frameworks": {
       "net48": {
         "dependencies": {
-          "Audion": {
-            "target": "Package",
-            "version": "[0.9.0, )"
-          },
           "Microsoft.Win32.Registry": {
             "target": "Package",
             "version": "[4.7.0, )"
@@ -1487,6 +1497,10 @@
           "NAudio.WinMM": {
             "target": "Package",
             "version": "[2.1.0, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.1, )"
           },
           "SharpGL.WPF": {
             "target": "Package",
