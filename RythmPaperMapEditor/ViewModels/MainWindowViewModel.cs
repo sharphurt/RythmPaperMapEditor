@@ -197,8 +197,8 @@ namespace RythmPaperMapEditor.ViewModels
         public ICommand VolumeControlValueChangedCommand { get; set; }
 
         public ICommand SwitchAutoscrollHotkeyCommand { get; set; }
-        
-        public ICommand SaveNotesListCommand { get; set; }
+
+        public ICommand ExportMapCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -252,14 +252,11 @@ namespace RythmPaperMapEditor.ViewModels
                 new RelayCommand(VolumeControlValueChanged, CanVolumeControlValueChanged);
             SwitchAutoscrollHotkeyCommand = new RelayCommand(SwitchAutoscroll, CanSwitchAutoscroll);
 
-            SaveNotesListCommand = new RelayCommand(SaveNotesList, CanSaveNotesList);
+            ExportMapCommand = new RelayCommand(SaveNotesList, CanSaveNotesList);
         }
 
         private bool CanSaveNotesList(object o)
         {
-            /*
-            Console.WriteLine(_notes != null && _notes.Count > 0);
-            */
             return _notes != null && _notes.Count > 0;
         }
 
@@ -271,10 +268,13 @@ namespace RythmPaperMapEditor.ViewModels
 
             if (result == true)
             {
-                File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(_notes.OrderBy(note => note.Time)));
+                var map = new Map(Title, BPM, Scale, Offset, SelectedTrack.Filepath,
+                    _notes.OrderBy(note => note.Time).ToList());
+
+                File.WriteAllText(sfd.FileName, JsonConvert.SerializeObject(map));
             }
         }
-        
+
         private bool CanSwitchAutoscroll(object o)
         {
             return true;
@@ -327,7 +327,7 @@ namespace RythmPaperMapEditor.ViewModels
                 AppliedTrackSettings = openDialog.TrackSettings;
 
                 Title = openDialog.Track.FriendlyName;
-                
+
                 InitializeAudioPlayer();
                 OnFileLoaded?.Invoke();
             }

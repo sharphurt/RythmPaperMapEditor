@@ -10,9 +10,11 @@ namespace RythmPaperMapEditor.Models
         private static Random _random = new Random();
      
         [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("sex")]
         public Sex Sex { get; }
 
         [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("country")]
         public Country Country { get; }
 
         public NoteParameters(Sex sex, Country country)

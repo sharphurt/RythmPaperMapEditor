@@ -125,7 +125,6 @@ namespace RythmPaperMapEditor.Views.CustomControls
         private void OnNoteAdded(Note note)
         {
             _notes.Add(note);
-            Console.WriteLine($"Added on {note.Time}");
             NotesListChanged?.Invoke(_notes);
         }
 
