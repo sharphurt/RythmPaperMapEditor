@@ -322,6 +322,8 @@ namespace RythmPaperMapEditor.ViewModels
                 Offset = openDialog.TrackSettings.Offset;
                 AppliedTrackSettings = openDialog.TrackSettings;
 
+                Title = openDialog.Track.FriendlyName;
+                
                 InitializeAudioPlayer();
                 OnFileLoaded?.Invoke();
             }

@@ -186,7 +186,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="TeritaryButtonStyle" TargetType="Button">
+    <Style x:Key="TeritarySquareButtonStyle" TargetType="Button">
         <Setter Property="Template" Value="{StaticResource IconButtonControlTemplate}" />
         <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}" />
         <Setter Property="Width" Value="36" />
@@ -256,8 +256,149 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <Style x:Key="TeritaryButtonStyle" TargetType="Button">
+        <Setter Property="Template" Value="{StaticResource ButtonControlTemplate}" />
+        <Setter Property="Background" Value="{StaticResource PanelBackgroundColor}" />
+        <Setter Property="Height" Value="36" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                To="{StaticResource SecondaryMouseOver}" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                From="{StaticResource SecondaryMouseOver}" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                            To="{StaticResource SecondaryMousePressed}"
+                                            Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                            From="{StaticResource SecondaryMouseOver}"
+                                            Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard TargetProperty="Background">
+                            <DoubleAnimation Storyboard.TargetProperty="(Opacity)"
+                                             To="0.3"
+                                             Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard TargetProperty="Background">
+                            <DoubleAnimation Storyboard.TargetProperty="(Opacity)"
+                                             From="0.3"
+                                             Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 
+    <Style x:Key="BigPrimaryButtonStyle" TargetType="Button">
+        <Setter Property="Template" Value="{StaticResource ButtonControlTemplate}" />
+        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="Height" Value="36" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                To="{StaticResource PrimaryMouseOver}" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                From="{StaticResource PrimaryMouseOver}" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                            To="{StaticResource PrimaryMousePressed}"
+                                            Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                            From="{StaticResource PrimaryMousePressed}"
+                                            Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard TargetProperty="Background">
+                            <DoubleAnimation Storyboard.TargetProperty="(Opacity)"
+                                             To="0.3"
+                                             Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard TargetProperty="Background">
+                            <DoubleAnimation Storyboard.TargetProperty="(Opacity)"
+                                             From="0.3"
+                                             Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    
     <ControlTemplate x:Key="GridElementTemplate" TargetType="Button">
         <Grid>
             <Border

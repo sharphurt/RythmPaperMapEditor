@@ -11,15 +11,23 @@
           DataContext="{Binding ElementName=WaveformRenderer, Path=DataContext}">
         <ScrollViewer HorizontalScrollBarVisibility="Auto" MouseMove="ScrollViewer_OnMouseMove" x:Name="ScrollViewer"
                       VerticalScrollBarVisibility="Disabled">
-            <Grid x:Name="Grid">
-                <Grid x:Name="TimelineContainer" MouseLeftButtonDown="TimelineContainer_OnMouseLeftButtonDown" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="30"
-                      Background="{StaticResource FormBackgroundColor}" />
+            <Grid>
+                <DockPanel x:Name="Grid">
+                    <Grid DockPanel.Dock="Top" x:Name="TimelineContainer"
+                          MouseLeftButtonDown="TimelineContainer_OnMouseLeftButtonDown" HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top" Height="30"
+                          Background="{StaticResource FormBackgroundColor}" />
 
-                <Grid x:Name="GridStackContainer" Margin="0,30,0,0">
-                    <StackPanel x:Name="GridStack" Orientation="Horizontal" VerticalAlignment="Stretch"
-                                                                HorizontalAlignment="Left" />
-                </Grid>
+                    <Grid x:Name="WaveformImage">
+                        <Grid DockPanel.Dock="Bottom" x:Name="GridStackContainer" HorizontalAlignment="Left"
+                              VerticalAlignment="Stretch">
+                            <!--<StackPanel x:Name="GridStack" Orientation="Horizontal" VerticalAlignment="Stretch"
+                                                                HorizontalAlignment="Left" />-->
+                        </Grid>
+                    </Grid>
 
+
+                </DockPanel>
                 <Grid x:Name="TimeIndicator" HorizontalAlignment="Left" Width="12" Margin="-6,0,0,0">
                     <Rectangle HorizontalAlignment="Center" Style="{StaticResource TimeIndicator}" />
                     <Image Source="{StaticResource TimelineIdicatorHandle}" Width="12" HorizontalAlignment="Center"

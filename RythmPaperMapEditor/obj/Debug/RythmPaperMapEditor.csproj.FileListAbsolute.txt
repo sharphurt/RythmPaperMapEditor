@@ -69,3 +69,6 @@ C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Deb
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\obj\Debug\Views\Timeline.baml
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Resources\Images\save.png
 C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Newtonsoft.Json.dll
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Resources\Images\logo.png
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Resources\Images\import.png
+C:\Users\sharphurt\RiderProjects\RythmPaperMapEditor\RythmPaperMapEditor\bin\Debug\Resources\Images\export.png

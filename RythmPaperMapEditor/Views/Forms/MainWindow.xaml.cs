@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
+using System.Windows.Input;
 using RythmPaperMapEditor.ViewModels;
 using RythmPaperMapEditor.Views.CustomControls;
 
@@ -26,6 +27,11 @@ namespace RythmPaperMapEditor.Views.Forms
             BpmTextBox.Text = ((MainWindowViewModel)DataContext).BPM.ToString();
             ScaleTextBox.Text = ((MainWindowViewModel)DataContext).Scale.ToString();
             OffsetTextBox.Text = ((MainWindowViewModel)DataContext).Offset.ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void MainWindow_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MainGrid.Focus();
         }
     }
 }

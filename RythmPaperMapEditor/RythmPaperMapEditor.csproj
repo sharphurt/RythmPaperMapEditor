@@ -150,6 +150,15 @@
       <Page Include="Views\Timeline.xaml" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Resources\Images\export.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\Images\import.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\Images\logo.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Resources\Images\save.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>

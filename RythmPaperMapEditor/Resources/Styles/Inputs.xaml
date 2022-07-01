@@ -30,4 +30,41 @@
         <Setter Property="Template" Value="{StaticResource InputControlTemplate}" />
     </Style>
     
+    <Style x:Key="DefocusedInputStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="{StaticResource FormBackgroundColor}" />
+        <Setter Property="Foreground" Value="{StaticResource TransparentWhiteColor}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template" Value="{StaticResource InputControlTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                To="{StaticResource PanelBackground}" Duration="0:0:0.1" />
+                                <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                                                To="{StaticResource Text}" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                From="{StaticResource PanelBackground}" Duration="0:0:0.1" />
+                                <ColorAnimation Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)"
+                                                From="{StaticResource Text}" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
 </ResourceDictionary>

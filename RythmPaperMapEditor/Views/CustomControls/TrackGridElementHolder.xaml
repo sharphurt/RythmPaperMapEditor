@@ -16,7 +16,7 @@
              Style="{StaticResource GridElementStyle}"
              d:DesignHeight="300" Width="30">
     <Grid>
-        <Rectangle x:Name="EmptyIcon" Width="5" Height="300" VerticalAlignment="Stretch" Fill="{StaticResource TransparentWhiteColor}" />
+        <Rectangle x:Name="EmptyIcon" Width="5" Height="300" HorizontalAlignment="Left" VerticalAlignment="Stretch" Fill="{StaticResource TransparentWhiteColor}" />
         <Image x:Name="ItemIcon" Width="30" Height="30" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </Button>

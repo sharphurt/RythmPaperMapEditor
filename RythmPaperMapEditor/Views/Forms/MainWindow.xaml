@@ -8,6 +8,7 @@
         xmlns:customControls="clr-namespace:RythmPaperMapEditor.Views.CustomControls"
         xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d"
+        MouseDown="MainWindow_OnMouseDown"
         Title="MainWindow" Height="720" Width="1280">
     <Window.DataContext>
         <viewModels:MainWindowViewModel OnFileLoaded="MainWindowViewModel_OnFileLoaded" />
@@ -15,8 +16,9 @@
     <Window.InputBindings>
         <KeyBinding Command="{Binding SwitchAutoscrollHotkeyCommand}" Key="S" Modifiers="Shift" />
     </Window.InputBindings>
-    <Grid VerticalAlignment="Stretch">
+    <Grid x:Name="MainGrid" VerticalAlignment="Stretch" Focusable="True">
         <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="3" />
             <RowDefinition Height="51 px" MaxHeight="50" MinHeight="50" />
@@ -24,8 +26,39 @@
             <RowDefinition Height="*" MinHeight="150" />
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0" Background="{StaticResource FormBackgroundColor}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource Logo}" Margin="16,0,24,0" Width="36" HorizontalAlignment="Left"
+                       VerticalAlignment="Center" />
 
-        <Grid Grid.Row="0" Background="{StaticResource PanelBackgroundColor}">
+                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding OpenFileCommand}">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Image Source="{StaticResource ImportIcon}" Width="24" Margin="0,0,6,0" />
+                        <Label Content="Импорт аудио" Style="{StaticResource TextLabelStyle}" />
+                    </StackPanel>
+                </Button>
+                
+                <Button Style="{StaticResource TeritaryButtonStyle}" Margin="16,0,0,0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Image Source="{StaticResource OpenIcon}" Width="22" Margin="0,0,6,0" />
+                        <Label Content="Открыть карту" Style="{StaticResource TextLabelStyle}" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
+            <TextBox x:Name="MapNameTextBox" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Style="{StaticResource DefocusedInputStyle}" Width="250"
+                     Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
+            </TextBox>
+            
+            <Button Style="{StaticResource BigPrimaryButtonStyle}" HorizontalAlignment="Right" Margin="0,0,16,0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="{StaticResource ExportIcon}" Width="22" Margin="0,0,6,0" />
+                    <Label Content="Экспорт" Style="{StaticResource TextLabelStyle}" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="1" Background="{StaticResource PanelBackgroundColor}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" MinWidth="200" />
                 <ColumnDefinition Width="3" />
@@ -144,7 +177,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <customControls:PanelHeader Grid.Row="0" Text="Информация" />
+                    <customControls:PanelHeader Grid.Row="0" Text="Информация o треке" />
                     <Grid Margin="0,24,0,0" Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100" />
@@ -176,30 +209,30 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2" Background="{StaticResource PanelBackgroundColor}">
+        <Grid Grid.Row="3" Background="{StaticResource PanelBackgroundColor}">
             <TextBlock Margin="16,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
                        Style="{StaticResource TimeTextLableStyle}"
                        Text="{Binding CurrentTrackPosition, Converter={StaticResource TimeSpanToStringConverter}, UpdateSourceTrigger=PropertyChanged, TargetNullValue='0:00:00.000'}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding RewindToStartCommand}">
+                <Button Style="{StaticResource TeritarySquareButtonStyle}" Command="{Binding RewindToStartCommand}">
                     <Image Source="{StaticResource BackToStartIcon}" />
                 </Button>
 
-                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding StartPlaybackCommand}">
+                <Button Style="{StaticResource TeritarySquareButtonStyle}" Command="{Binding StartPlaybackCommand}">
                     <Image
                         Source="{Binding PlaybackState, Converter={StaticResource PlaybackStateToIconConverter}, UpdateSourceTrigger=PropertyChanged}" />
                 </Button>
 
-                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding StopPlaybackCommand}">
+                <Button Style="{StaticResource TeritarySquareButtonStyle}" Command="{Binding StopPlaybackCommand}">
                     <Image Source="{StaticResource StopIcon}" />
                 </Button>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Style="{StaticResource TeritaryButtonStyle}" Margin="0,0,16,0"
+                <Button Style="{StaticResource TeritarySquareButtonStyle}" Margin="0,0,16,0"
                         Command="{Binding OpenFileCommand}">
                     <Image Source="{StaticResource OpenIcon}" />
                 </Button>
-                <Button Style="{StaticResource TeritaryButtonStyle}" Margin="0,0,16,0"
+                <Button Style="{StaticResource TeritarySquareButtonStyle}" Margin="0,0,16,0"
                         Command="{Binding SaveNotesListCommand}">
                     <Image Source="{StaticResource SaveIcon}" />
                 </Button>
@@ -207,7 +240,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="4" Background="{StaticResource PanelBackgroundColor}">
+        <Grid Grid.Row="5" Background="{StaticResource PanelBackgroundColor}">
             <customControls:Waveform
                 AutoScroll="{Binding IsAutoscrollEnabled, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                 TrackSettings="{Binding AppliedTrackSettings, UpdateSourceTrigger=PropertyChanged}"
@@ -215,9 +248,9 @@
         </Grid>
 
 
-        <GridSplitter Grid.Row="1" Background="{StaticResource FormBackgroundColor}"
+        <GridSplitter Grid.Row="2" Background="{StaticResource FormBackgroundColor}"
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Stretch" />
-        <Rectangle Grid.Row="3" Fill="{StaticResource FormBackgroundColor}" />
+        <Rectangle Grid.Row="4" Fill="{StaticResource FormBackgroundColor}" />
     </Grid>
 </Window>

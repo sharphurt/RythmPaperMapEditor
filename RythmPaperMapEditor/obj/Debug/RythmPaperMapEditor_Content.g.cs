@@ -8,6 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/export.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/import.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/logo.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/save.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/timelineindicatorhandle.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/back.png")]

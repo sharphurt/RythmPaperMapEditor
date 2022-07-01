@@ -8,7 +8,11 @@
     <BitmapImage x:Key="StopIcon" UriSource="stop.png" />
     <BitmapImage x:Key="OpenIcon" UriSource="open.png" />
     <BitmapImage x:Key="SaveIcon" UriSource="save.png" />
-    
+    <BitmapImage x:Key="ImportIcon" UriSource="import.png" />
+    <BitmapImage x:Key="ExportIcon" UriSource="export.png" />
+
+    <BitmapImage x:Key="Logo" UriSource="logo.png" />
+
     <BitmapImage x:Key="TimelineIdicatorHandle" UriSource="timelineIndicatorHandle.png" />
 
     <BitmapImage x:Key="NoteDefaultIcon" UriSource="ellipse.png" />

@@ -83,12 +83,12 @@ namespace RythmPaperMapEditor.Views.CustomControls
             };
 
             var trackLength = GenerateGrid(TrackSettings);
-            GridStack.Width = trackLength;
+            GridStackContainer.Width = trackLength;
 
             myRendererSettings.Width = trackLength / 2;
             var image = RenderInThread(_viewModel.SelectedTrack.Filepath, rmsPeakProvider, myRendererSettings);
 
-            GridStackContainer.Background = new ImageBrush(GetImageStream(image));
+            WaveformImage.Background = new ImageBrush(GetImageStream(image));
 
             var timeline = new Timeline
             {
@@ -138,7 +138,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
         {
             var currentPosition = (_viewModel.AudioPlayer.GetPosition().TotalMilliseconds /
                                    _viewModel.AudioPlayer.GetLenght().TotalMilliseconds *
-                                   GridStack.Width);
+                                   GridStackContainer.Width);
 
             ScrollViewer.ScrollToHorizontalOffset(currentPosition - Container.ActualWidth / 2);
         }
@@ -147,7 +147,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
         {
             var currentPosition = (_viewModel.AudioPlayer.GetPosition().TotalMilliseconds /
                                    _viewModel.AudioPlayer.GetLenght().TotalMilliseconds *
-                                   GridStack.Width);
+                                   GridStackContainer.Width);
 
             TimeIndicator.Margin = new Thickness(currentPosition - TimeIndicator.ActualWidth / 2, 0, 0, 0);
         }
@@ -171,9 +171,11 @@ namespace RythmPaperMapEditor.Views.CustomControls
             return image;
         }
 
+        /*
         public int GenerateGrid(TrackSettings settings)
         {
             var audioLength = _viewModel.AudioPlayer.GetLenght().TotalMinutes;
+
             var bpm = settings.BPM * (double)settings.Scale;
             var gridElementsCount = (int)(audioLength * bpm) + 1;
             var elementGridWidth = (int)new TrackGridElementHolder(0).Width;
@@ -196,11 +198,57 @@ namespace RythmPaperMapEditor.Views.CustomControls
             if (audioLength != 0 && trackWidth != 0)
             {
                 var margin = (trackWidth / _viewModel.AudioPlayer.GetLenght().TotalSeconds) * settings.Offset;
-                GridStack.Margin = new Thickness(margin - elementGridWidth / 2f, 0, 0, 0);
+                GridStack.Margin = new Thickness(margin /*- elementGridWidth / 2f#1#, 0, 0, 0);
             }
 
             return trackWidth;
         }
+        */
+
+        public int GenerateGrid(TrackSettings settings)
+        {
+            GridStackContainer.Children.Clear();
+
+            var audioLength = _viewModel.AudioPlayer.GetLenght().TotalSeconds;
+            var elementGridWidth = (int)new TrackGridElementHolder(0).Width;
+
+            var trackWidth = 30000;
+
+            var pixelsPerSecond = trackWidth / audioLength;
+
+            var bpm = settings.BPM * (double)settings.Scale;
+
+            var secondsBetweenBeats = 60 / bpm;
+
+            var counter = 0;
+
+            for (var i = 0.0; i < audioLength; i += secondsBetweenBeats)
+            {
+                var margin = pixelsPerSecond * i;
+
+                var element = new TrackGridElementHolder(counter)
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(margin - elementGridWidth / 2f, 0, 0, 0)
+                };
+
+                element.NoteAdded += OnNoteAdded;
+                element.NoteRemoved += OnNoteRemoved;
+
+                GridStackContainer.Children.Add(element);
+
+                counter++;
+            }
+
+            if (audioLength != 0)
+            {
+                var margin = (trackWidth / _viewModel.AudioPlayer.GetLenght().TotalSeconds) * settings.Offset;
+                GridStackContainer.Margin = new Thickness(margin, 0, 0, 0);
+            }
+
+            return trackWidth;
+        }
+
 
         [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -232,7 +280,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
         private void SetTimelineIndicatorToPoint(System.Windows.Point point)
         {
             var totalSeconds = _viewModel.AudioPlayer.GetLenght().TotalMilliseconds;
-            var x = (ScrollViewer.ContentHorizontalOffset + point.X) / GridStack.ActualWidth;
+            var x = (ScrollViewer.ContentHorizontalOffset + point.X) / GridStackContainer.ActualWidth;
             _viewModel.CurrentTrackPosition = TimeSpan.FromMilliseconds(x * totalSeconds);
         }
 
