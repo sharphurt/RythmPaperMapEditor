@@ -69,7 +69,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
             };
         }
 
-        public void GenerateTimeline()
+        public void GenerateTimeline(List<Note> notes)
         {
             var rmsPeakProvider = new RmsPeakProvider(200); // e.g. 200
 
@@ -82,7 +82,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
                 BottomHeight = 32
             };
 
-            var trackLength = GenerateGrid(TrackSettings);
+            var trackLength = GenerateGrid(TrackSettings, notes);
             GridStackContainer.Width = trackLength;
 
             myRendererSettings.Width = trackLength / 2;
@@ -205,7 +205,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
         }
         */
 
-        public int GenerateGrid(TrackSettings settings)
+        public int GenerateGrid(TrackSettings settings, List<Note> notes)
         {
             GridStackContainer.Children.Clear();
 
@@ -213,24 +213,30 @@ namespace RythmPaperMapEditor.Views.CustomControls
             var elementGridWidth = (int)new TrackGridElementHolder(0).Width;
 
             var trackWidth = 30000;
-
             var pixelsPerSecond = trackWidth / audioLength;
-
             var bpm = settings.BPM * (double)settings.Scale;
-
             var secondsBetweenBeats = 60 / bpm;
-
             var counter = 0;
 
             for (var i = 0.0; i < audioLength; i += secondsBetweenBeats)
             {
                 var margin = pixelsPerSecond * i;
 
-                var element = new TrackGridElementHolder(counter)
+                TrackGridElementHolder element;
+                var note = notes.Where(n => n.Time == counter).ToList();
+                
+                if (note.Count > 0 && note.First() != null)
                 {
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    Margin = new Thickness(margin - elementGridWidth / 2f, 0, 0, 0)
-                };
+                    element = new TrackGridElementHolder(counter, note.First());
+                }
+                else
+                {
+                    element = new TrackGridElementHolder(counter);
+
+                }
+
+                element.HorizontalAlignment = HorizontalAlignment.Left;
+                element.Margin = new Thickness(margin - elementGridWidth / 2f, 0, 0, 0);
 
                 element.NoteAdded += OnNoteAdded;
                 element.NoteRemoved += OnNoteRemoved;
@@ -287,6 +293,47 @@ namespace RythmPaperMapEditor.Views.CustomControls
         private void TimelineContainer_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             SetTimelineIndicatorToPoint(e.GetPosition(this));
+        }
+
+        private void GridStackContainer_OnMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (!Keyboard.IsKeyDown(Key.LeftCtrl))
+                return;
+
+            var audioLength = _viewModel.AudioPlayer.GetLenght().TotalSeconds;
+            var trackWidth = GridStackContainer.ActualWidth + e.Delta * (Keyboard.IsKeyDown(Key.LeftShift) ? 50 : 1);
+            var pixelsPerSecond = trackWidth / audioLength;
+
+            if (pixelsPerSecond < 35)
+                return;
+
+            var elementGridWidth = (int)new TrackGridElementHolder(0).Width;
+            var bpm = _viewModel.BPM * (double)_viewModel.Scale;
+
+            var secondsBetweenBeats = 60 / bpm;
+
+            var counter = 0;
+
+            for (var i = 0.0; i < audioLength; i += secondsBetweenBeats)
+            {
+                var margin = pixelsPerSecond * i;
+                ((TrackGridElementHolder)GridStackContainer.Children[counter]).Margin =
+                    new Thickness(margin - elementGridWidth / 2f, 0, 0, 0);
+
+                counter++;
+            }
+
+            GridStackContainer.Width = trackWidth;
+            WaveformImage.Width = trackWidth;
+
+            if (audioLength != 0)
+            {
+                var margin = (trackWidth / _viewModel.AudioPlayer.GetLenght().TotalSeconds) * _viewModel.Offset;
+                GridStackContainer.Margin = new Thickness(margin, 0, 0, 0);
+            }
+
+            if (TimelineContainer.Children.Count > 0)
+                ((Timeline)TimelineContainer.Children[0]).Redraw(_viewModel.AudioPlayer.GetLenght(), trackWidth);
         }
     }
 }

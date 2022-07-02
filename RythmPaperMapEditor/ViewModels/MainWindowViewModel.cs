@@ -39,8 +39,8 @@ namespace RythmPaperMapEditor.ViewModels
 
         private WaveStream _waveStream;
 
-        public event Action OnFileLoaded;
-        public event Action OnTrackSettingsUpdated;
+        public event Action<List<Note>> OnFileLoaded;
+        public event Action<List<Note>> OnTrackSettingsUpdated;
 
         public AudioPlayer AudioPlayer => _audioPlayer;
 
@@ -188,7 +188,7 @@ namespace RythmPaperMapEditor.ViewModels
         public ICommand RewindToStartCommand { get; set; }
         public ICommand StartPlaybackCommand { get; set; }
         public ICommand StopPlaybackCommand { get; set; }
-        public ICommand OpenFileCommand { get; set; }
+        public ICommand OpenAudioCommand { get; set; }
 
         public ICommand UpdateTrackSettingsCommand { get; set; }
 
@@ -199,6 +199,8 @@ namespace RythmPaperMapEditor.ViewModels
         public ICommand SwitchAutoscrollHotkeyCommand { get; set; }
 
         public ICommand ExportMapCommand { get; set; }
+
+        public ICommand OpenMapCommand { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -242,7 +244,7 @@ namespace RythmPaperMapEditor.ViewModels
             RewindToStartCommand = new RelayCommand(RewindToStart, CanRewindToStart);
             StartPlaybackCommand = new RelayCommand(StartPlayback, CanStartPlayback);
             StopPlaybackCommand = new RelayCommand(StopPlayback, CanStopPlayback);
-            OpenFileCommand = new RelayCommand(OpenFile, CanOpenFile);
+            OpenAudioCommand = new RelayCommand(OpenFile, CanOpenFile);
 
             UpdateTrackSettingsCommand = new RelayCommand(UpdateTrackSettings, CanUpdateTrackSettings);
 
@@ -253,6 +255,63 @@ namespace RythmPaperMapEditor.ViewModels
             SwitchAutoscrollHotkeyCommand = new RelayCommand(SwitchAutoscroll, CanSwitchAutoscroll);
 
             ExportMapCommand = new RelayCommand(SaveNotesList, CanSaveNotesList);
+
+            OpenMapCommand = new RelayCommand(OpenMap, CanOpenMap);
+        }
+
+        private bool CanOpenMap(object obj)
+        {
+            return true;
+        }
+
+        private void OpenMap(object obj)
+        {
+            var ofd = new OpenFileDialog
+            {
+                Filter = "Json file|*.json"
+            };
+
+            var result = ofd.ShowDialog();
+
+            if (result == true)
+            {
+                Map map = null;
+                
+                try
+                {
+                    map = JsonConvert.DeserializeObject<Map>(File.ReadAllText(ofd.FileName));
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Map not found in this file");
+                }
+
+                if (map == null)
+                {
+                    MessageBox.Show("Map not found in this file");
+                    return;
+                }
+
+                if (File.Exists(map.Audio))
+                {
+                    Title = map.Name;
+                    BPM = map.Bpm;
+                    Scale = map.Scale;
+                    Offset = map.Offset;
+                    AppliedTrackSettings = new TrackSettings(map.Bpm, map.Scale, map.Offset);
+
+                    var duration = new AudioFileReader(map.Audio).TotalTime;
+                    SelectedTrack = new Track(map.Audio, Path.GetFileNameWithoutExtension(map.Audio), duration);
+
+                    _notes = map.Notes;
+                    InitializeAudioPlayer();
+                    OnFileLoaded?.Invoke(map.Notes);
+                }
+                else
+                {
+                    MessageBox.Show("Link to audio file missed");
+                }
+            }
         }
 
         private bool CanSaveNotesList(object o)
@@ -293,7 +352,7 @@ namespace RythmPaperMapEditor.ViewModels
         private void UpdateTrackSettings(object obj)
         {
             AppliedTrackSettings = new TrackSettings(BPM, Scale, Offset);
-            OnTrackSettingsUpdated?.Invoke();
+            OnTrackSettingsUpdated?.Invoke(_notes);
         }
 
         private void InitializeAudioPlayer()
@@ -329,7 +388,7 @@ namespace RythmPaperMapEditor.ViewModels
                 Title = openDialog.Track.FriendlyName;
 
                 InitializeAudioPlayer();
-                OnFileLoaded?.Invoke();
+                OnFileLoaded?.Invoke(new List<Note>());
             }
         }
 

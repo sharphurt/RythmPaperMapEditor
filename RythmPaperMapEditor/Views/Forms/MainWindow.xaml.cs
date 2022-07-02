@@ -1,6 +1,8 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
+using RythmPaperMapEditor.Models;
 using RythmPaperMapEditor.ViewModels;
 using RythmPaperMapEditor.Views.CustomControls;
 
@@ -22,7 +24,7 @@ namespace RythmPaperMapEditor.Views.Forms
             }
         }
 
-        private void MainWindowViewModel_OnFileLoaded()
+        private void MainWindowViewModel_OnFileLoaded(List<Note> _)
         {
             BpmTextBox.Text = ((MainWindowViewModel)DataContext).BPM.ToString();
             ScaleTextBox.Text = ((MainWindowViewModel)DataContext).Scale.ToString();

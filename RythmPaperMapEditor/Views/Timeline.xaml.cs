@@ -57,7 +57,7 @@ namespace RythmPaperMapEditor.Views
                     };
                     Grid.Children.Add(minorTick);
                 }
-                
+
                 // Add time label
                 var time = new TextBlock();
                 time.VerticalAlignment = VerticalAlignment.Top;
@@ -68,6 +68,31 @@ namespace RythmPaperMapEditor.Views
                 time.Text = ts.TotalHours >= 1 ? ts.ToString(@"h\:mm\:ss") : ts.ToString(@"mm\:ss");
                 time.Margin = new Thickness(margin + 5, 0, 0, 0);
                 Grid.Children.Add(time);
+            }
+        }
+
+        public void Redraw(TimeSpan length, double width)
+        {
+            var totalSeconds = length.TotalSeconds;
+
+            var pixelsPerSecond = width / totalSeconds;
+
+            var counter = 1;
+
+            for (var i = 0; i < totalSeconds; i++)
+            {
+                var margin = pixelsPerSecond * i;
+                ((Border)Grid.Children[counter]).Margin = new Thickness(margin, 0, 0, 0);
+
+                for (int j = 1; j < 5; j++)
+                {
+                    ((Border)Grid.Children[counter + j]).Margin =
+                        new Thickness(margin + (j * pixelsPerSecond / 5), 0, 0, 0);
+                }
+
+                ((TextBlock)Grid.Children[counter + 5]).Margin = new Thickness(margin + 5, 0, 0, 0);
+                
+                counter += 6;
             }
         }
     }

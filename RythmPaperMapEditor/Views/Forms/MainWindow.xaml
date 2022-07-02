@@ -19,7 +19,7 @@
     <Grid x:Name="MainGrid" VerticalAlignment="Stretch" Focusable="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="2*" />
             <RowDefinition Height="3" />
             <RowDefinition Height="51 px" MaxHeight="50" MinHeight="50" />
             <RowDefinition Height="3" />
@@ -31,29 +31,33 @@
                 <Image Source="{StaticResource Logo}" Margin="16,0,24,0" Width="36" HorizontalAlignment="Left"
                        VerticalAlignment="Center" />
 
-                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding OpenFileCommand}">
+                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding OpenAudioCommand}">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Image Source="{StaticResource ImportIcon}" Width="24" Margin="0,0,6,0" />
                         <Label Content="Импорт аудио" Style="{StaticResource TextLabelStyle}" />
                     </StackPanel>
                 </Button>
-                
-                <Button Style="{StaticResource TeritaryButtonStyle}" Margin="16,0,0,0">
+
+                <Button Style="{StaticResource TeritaryButtonStyle}" Command="{Binding OpenMapCommand}" Margin="16,0,0,0">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Image Source="{StaticResource OpenIcon}" Width="22" Margin="0,0,6,0" />
                         <Label Content="Открыть карту" Style="{StaticResource TextLabelStyle}" />
                     </StackPanel>
                 </Button>
             </StackPanel>
-            
-            <TextBox x:Name="MapNameTextBox" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Style="{StaticResource DefocusedInputStyle}" Width="250"
+
+            <TextBox x:Name="MapNameTextBox"
+                     Visibility="{Binding IsTrackLoaded, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Style="{StaticResource DefocusedInputStyle}" Width="250"
                      Height="40" HorizontalAlignment="Center" VerticalAlignment="Center">
             </TextBox>
-            
-            <Button Style="{StaticResource BigPrimaryButtonStyle}" Command="{Binding ExportMapCommand}" HorizontalAlignment="Right" Margin="0,0,16,0">
+
+            <Button Style="{StaticResource BigPrimaryButtonStyle}" Command="{Binding ExportMapCommand}"
+                    HorizontalAlignment="Right" Margin="0,0,16,0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Image Source="{StaticResource ExportIcon}" Width="22" Margin="0,0,6,0" />
-                    <Label Content="Экспорт" Style="{StaticResource TextLabelStyle}" />
+                    <Label Content="Экспорт" Style="{StaticResource TextLabelStyle}" Foreground="White" />
                 </StackPanel>
             </Button>
         </Grid>
@@ -88,125 +92,130 @@
                 </WrapPanel>
             </Grid>
 
-            <Grid Grid.Column="4">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" MinHeight="200" />
-                    <RowDefinition Height="3" />
-                    <RowDefinition Height="*" MinHeight="200" />
-                    <RowDefinition Height="3" />
-                    <RowDefinition Height="*" MaxHeight="100" />
-                </Grid.RowDefinitions>
-
-                <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"
-                              Background="{StaticResource FormBackgroundColor}" />
-                <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch"
-                              Background="{StaticResource FormBackgroundColor}" />
-
-                <Grid Grid.Row="0" Margin="16">
+            <ScrollViewer Grid.Column="4">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" MinHeight="200" />
+                        <RowDefinition Height="3" />
+                        <RowDefinition Height="*" MinHeight="200" />
+                        <RowDefinition Height="3" />
+                        <RowDefinition Height="*" MinHeight="200" />
                     </Grid.RowDefinitions>
-                    <customControls:PanelHeader Grid.Row="0" Text="Настройки сетки">
-                        <customControls:PanelHeader.AdditionalContent>
-                            <Button Command="{Binding UpdateTrackSettingsCommand}" Content="Применить"
-                                    Style="{StaticResource SecondaryButton}"
-                                    Visibility="{Binding IsTrackLoaded,
+
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"
+                                  Background="{StaticResource FormBackgroundColor}" />
+                    <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch"
+                                  Background="{StaticResource FormBackgroundColor}" />
+
+                    <Grid Grid.Row="0" Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <customControls:PanelHeader Grid.Row="0" Text="Настройки сетки">
+                            <customControls:PanelHeader.AdditionalContent>
+                                <Button Command="{Binding UpdateTrackSettingsCommand}" Content="Применить"
+                                        Style="{StaticResource SecondaryButton}"
+                                        Visibility="{Binding IsTrackLoaded,
                                     UpdateSourceTrigger=PropertyChanged,
                                     Converter={StaticResource BoolToVisibilityConverter}}" />
-                        </customControls:PanelHeader.AdditionalContent>
-                    </customControls:PanelHeader>
-                    <Grid Grid.Row="1"
-                          Visibility="{Binding IsTrackLoaded, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
-                          Margin="0,24,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="60" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="32" />
-                            <RowDefinition Height="32" />
-                            <RowDefinition Height="32" />
-                        </Grid.RowDefinitions>
+                            </customControls:PanelHeader.AdditionalContent>
+                        </customControls:PanelHeader>
+                        <Grid Grid.Row="1"
+                              Visibility="{Binding IsTrackLoaded, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToVisibilityConverter}}"
+                              Margin="0,24,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="60" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="32" />
+                                <RowDefinition Height="32" />
+                                <RowDefinition Height="32" />
+                            </Grid.RowDefinitions>
 
-                        <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource SecondaryHeaderStyle}"
-                               Content="BPM" />
+                            <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource SecondaryHeaderStyle}"
+                                   Content="BPM" />
 
-                        <customControls:NumericTextBox
-                            x:Name="BpmTextBox"
-                            Grid.Column="1" Grid.Row="0"
-                            Text="{Binding BPM, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource IntToStringConverter}, Mode=OneWayToSource}"
-                            Style="{StaticResource InputStyle}" />
+                            <customControls:NumericTextBox
+                                x:Name="BpmTextBox"
+                                Grid.Column="1" Grid.Row="0"
+                                Text="{Binding BPM, UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource IntToStringConverter}, Mode=OneWayToSource}"
+                                Style="{StaticResource InputStyle}" />
 
-                        <Label Grid.Column="2" Grid.Row="0" Margin="8,0,0,0"
-                               Style="{StaticResource TextLabelStyle}"
-                               Content="уд/мин." />
+                            <Label Grid.Column="2" Grid.Row="0" Margin="8,0,0,0"
+                                   Style="{StaticResource TextLabelStyle}"
+                                   Content="уд/мин." />
 
-                        <Label Grid.Column="0" Grid.Row="1" Style="{StaticResource SecondaryHeaderStyle}"
-                               Content="Множитель" />
+                            <Label Grid.Column="0" Grid.Row="1" Style="{StaticResource SecondaryHeaderStyle}"
+                                   Content="Множитель" />
 
-                        <customControls:NumericTextBox
-                            x:Name="ScaleTextBox"
-                            Grid.Column="1" Grid.Row="1"
-                            Text="{Binding Scale, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntToStringConverter}, Mode=OneWayToSource}"
-                            Style="{StaticResource InputStyle}" />
+                            <customControls:NumericTextBox
+                                x:Name="ScaleTextBox"
+                                Grid.Column="1" Grid.Row="1"
+                                Text="{Binding Scale, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntToStringConverter}, Mode=OneWayToSource}"
+                                Style="{StaticResource InputStyle}" />
 
-                        <Label Grid.Column="0" Grid.Row="2" Style="{StaticResource SecondaryHeaderStyle}"
-                               Content="Начало" />
+                            <Label Grid.Column="0" Grid.Row="2" Style="{StaticResource SecondaryHeaderStyle}"
+                                   Content="Начало" />
 
-                        <customControls:FloatNumericTextBox
-                            x:Name="OffsetTextBox"
-                            Grid.Column="1" Grid.Row="2"
-                            Text="{Binding Offset, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DoubleToStringConverter}, Mode=OneWayToSource}"
-                            Style="{StaticResource FloatInputStyle}" />
+                            <customControls:FloatNumericTextBox
+                                x:Name="OffsetTextBox"
+                                Grid.Column="1" Grid.Row="2"
+                                Text="{Binding Offset, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DoubleToStringConverter}, Mode=OneWayToSource}"
+                                Style="{StaticResource FloatInputStyle}" />
 
-                        <Label Grid.Column="2" Grid.Row="2" Margin="8,0,0,0"
-                               Style="{StaticResource TextLabelStyle}"
-                               Content="сек." />
+                            <Label Grid.Column="2" Grid.Row="2" Margin="8,0,0,0"
+                                   Style="{StaticResource TextLabelStyle}"
+                                   Content="сек." />
+                        </Grid>
+                        <TextBlock Grid.Row="1" Text="Выберите или импортируйте трек" HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch" Style="{StaticResource HintTextLableStyle}"
+                                   Padding="0,20,0,0"
+                                   Visibility="{Binding IsTrackLoaded, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
                     </Grid>
-                    <TextBlock Grid.Row="1" Text="Выберите или импортируйте трек" HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch" Style="{StaticResource HintTextLableStyle}"
-                               Padding="0,20,0,0"
-                               Visibility="{Binding IsTrackLoaded, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedBoolToVisibilityConverter}}" />
-                </Grid>
 
-                <Grid Grid.Row="2" Margin="16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <customControls:PanelHeader Grid.Row="0" Text="Информация o треке" />
-                    <Grid Margin="0,24,0,0" Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="2" Margin="16">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource SecondaryHeaderStyle}"
-                               Margin="0,0,0,8"
-                               Content="Название" />
-                        <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource TextLabelStyle}" Margin="0,0,0,8"
-                               Content="{Binding SelectedTrack.FriendlyName, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Column="0" Grid.Row="1" Style="{StaticResource SecondaryHeaderStyle}"
-                               Margin="0,0,0,8"
-                               Content="Путь" />
-                        <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource TextLabelStyle}" Margin="0,0,0,8"
-                               Content="{Binding SelectedTrack.Filepath, UpdateSourceTrigger=PropertyChanged}" />
+                        <customControls:PanelHeader Grid.Row="0" Text="Информация o треке" />
+                        <Grid Margin="0,24,0,0" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource SecondaryHeaderStyle}"
+                                   Margin="0,0,0,8"
+                                   Content="Название" />
+                            <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource TextLabelStyle}"
+                                   Margin="0,0,0,8"
+                                   Content="{Binding SelectedTrack.FriendlyName, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Column="0" Grid.Row="2" Style="{StaticResource SecondaryHeaderStyle}"
-                               Content="Длительность" />
-                        <Label Grid.Column="1" Grid.Row="2" Style="{StaticResource TextLabelStyle}"
-                               Content="{Binding SelectedTrack.Time, Converter={StaticResource TimeSpanToStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Grid.Column="0" Grid.Row="1" Style="{StaticResource SecondaryHeaderStyle}"
+                                   Margin="0,0,0,8"
+                                   Content="Путь" />
+                            <Label Grid.Column="1" Grid.Row="1" Style="{StaticResource TextLabelStyle}"
+                                   Margin="0,0,0,8"
+                                   Content="{Binding SelectedTrack.Filepath, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <Label Grid.Column="0" Grid.Row="2" Style="{StaticResource SecondaryHeaderStyle}"
+                                   Content="Длительность" />
+                            <Label Grid.Column="1" Grid.Row="2" Style="{StaticResource TextLabelStyle}"
+                                   Content="{Binding SelectedTrack.Time, Converter={StaticResource TimeSpanToStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </ScrollViewer>
+
         </Grid>
 
         <Grid Grid.Row="3" Background="{StaticResource PanelBackgroundColor}">
@@ -227,7 +236,7 @@
                     <Image Source="{StaticResource StopIcon}" />
                 </Button>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <!--<StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Style="{StaticResource TeritarySquareButtonStyle}" Margin="0,0,16,0"
                         Command="{Binding OpenFileCommand}">
                     <Image Source="{StaticResource OpenIcon}" />
@@ -236,7 +245,7 @@
                         Command="{Binding ExportMapCommand}">
                     <Image Source="{StaticResource SaveIcon}" />
                 </Button>
-            </StackPanel>
+            </StackPanel>-->
 
         </Grid>
 

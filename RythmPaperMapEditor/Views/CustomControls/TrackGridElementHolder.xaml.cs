@@ -12,17 +12,32 @@ namespace RythmPaperMapEditor.Views.CustomControls
     public partial class TrackGridElementHolder : Button
     {
         public event Action<Note> NoteAdded;
-        
+
         public event Action<int> NoteRemoved;
 
         private int _index;
 
         private bool _containsNote;
-        
+
         public TrackGridElementHolder(int index)
         {
             InitializeComponent();
             _index = index;
+        }
+
+        public TrackGridElementHolder(int index, Note note)
+        {
+            InitializeComponent();
+
+            if (note.Time != index)
+            {
+                MessageBox.Show($"Error! Note loading error. Problems with note {note.Time}");
+                return;
+            }
+
+            _containsNote = true;
+            _index = note.Time;
+            SetState(note);
         }
 
         private void TrackGridElementHolder_OnDragOver(object sender, DragEventArgs e)
@@ -32,7 +47,10 @@ namespace RythmPaperMapEditor.Views.CustomControls
                 if ((e.KeyStates & DragDropKeyStates.ControlKey) == DragDropKeyStates.ControlKey)
                 {
                     e.Effects = DragDropEffects.Copy;
-                    SetState((NoteType) e.Data.GetData("NoteType"));
+
+                    var note = new Note((NoteType)e.Data.GetData("NoteType"), NoteParameters.Random(), _index);
+                    SetState(note);
+
                     e.Handled = true;
                 }
                 else
@@ -47,31 +65,32 @@ namespace RythmPaperMapEditor.Views.CustomControls
             if (e.Handled == false)
             {
                 var _panel = (TrackGridElementHolder)sender;
-                var _element = (ItemCard) e.Data.GetData("Object");
+                var _element = (ItemCard)e.Data.GetData("Object");
 
                 if (_panel != null && _element != null)
                 {
-                    SetState((NoteType) e.Data.GetData("NoteType"));
+                    var note = new Note((NoteType)e.Data.GetData("NoteType"), NoteParameters.Random(), _index);
+
+                    SetState(note);
                     e.Effects = DragDropEffects.Move;
                 }
             }
         }
 
-        private void SetState(NoteType type)
+        private void SetState(Note note)
         {
-            if (_containsNote && type == NoteType.None)
+            if (_containsNote && note.Type == NoteType.None)
             {
                 NoteRemoved?.Invoke(_index);
                 _containsNote = false;
             }
             else if (!_containsNote)
             {
-                var note = new Note(type, NoteParameters.Random(), _index);
                 NoteAdded?.Invoke(note);
                 _containsNote = true;
             }
-            
-            SetVisualState(type);
+
+            SetVisualState(note.Type);
         }
 
         private void SetVisualState(NoteType type)
@@ -87,14 +106,14 @@ namespace RythmPaperMapEditor.Views.CustomControls
                 ItemIcon.Visibility = Visibility.Visible;
 
                 var icon = (BitmapImage)Application.Current.Resources[Data.Data.NoteIcons[type]];
-                
+
                 ItemIcon.Source = icon;
             }
         }
 
         private void TrackGridElementHolder_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            SetState(NoteType.None);
+            SetState(new Note(NoteType.None, NoteParameters.Random(), 0));
         }
     }
 }

@@ -18,7 +18,8 @@
                           VerticalAlignment="Top" Height="30"
                           Background="{StaticResource FormBackgroundColor}" />
 
-                    <Grid x:Name="WaveformImage">
+                    <Grid x:Name="WaveformImage" MouseWheel="GridStackContainer_OnMouseWheel"
+                          HorizontalAlignment="Left">
                         <Grid DockPanel.Dock="Bottom" x:Name="GridStackContainer" HorizontalAlignment="Left"
                               VerticalAlignment="Stretch">
                             <!--<StackPanel x:Name="GridStack" Orientation="Horizontal" VerticalAlignment="Stretch"
