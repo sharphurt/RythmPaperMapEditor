@@ -276,7 +276,7 @@ namespace RythmPaperMapEditor.ViewModels
             if (result == true)
             {
                 Map map = null;
-                
+
                 try
                 {
                     map = JsonConvert.DeserializeObject<Map>(File.ReadAllText(ofd.FileName));
@@ -300,13 +300,22 @@ namespace RythmPaperMapEditor.ViewModels
                     Offset = map.Offset;
                     AppliedTrackSettings = new TrackSettings(map.Bpm, map.Scale, map.Offset);
 
-                    var duration = new AudioFileReader(map.Audio).TotalTime;
-                    SelectedTrack = new Track(map.Audio, Path.GetFileNameWithoutExtension(map.Audio), duration);
+                    try
+                    {
+                        var duration = new AudioFileReader(map.Audio).TotalTime;
+                        SelectedTrack = new Track(map.Audio, Path.GetFileNameWithoutExtension(map.Audio), duration);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Link to audio file missed");
+                        return;
+                    }
 
                     _notes = map.Notes;
                     InitializeAudioPlayer();
                     OnFileLoaded?.Invoke(map.Notes);
                 }
+
                 else
                 {
                     MessageBox.Show("Link to audio file missed");
