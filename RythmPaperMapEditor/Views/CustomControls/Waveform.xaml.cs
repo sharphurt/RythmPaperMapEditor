@@ -62,15 +62,16 @@ namespace RythmPaperMapEditor.Views.CustomControls
                 if (DataContext is MainWindowViewModel viewModel)
                 {
                     _viewModel = viewModel;
+                    _viewModel.RegisterNotesListChangedEventHandler(this);
                     _viewModel.OnFileLoaded += GenerateTimeline;
                     _viewModel.OnTrackSettingsUpdated += GenerateTimeline;
-                    _viewModel.RegisterNotesListChangedEventHandler(this);
                 }
             };
         }
 
         public void GenerateTimeline(List<Note> notes)
         {
+            Console.WriteLine(notes.Count);
             var rmsPeakProvider = new RmsPeakProvider(200); // e.g. 200
 
             var myRendererSettings = new StandardWaveFormRendererSettings
@@ -222,24 +223,18 @@ namespace RythmPaperMapEditor.Views.CustomControls
             {
                 var margin = pixelsPerSecond * i;
 
-                TrackGridElementHolder element;
-                var note = notes.Where(n => n.Time == counter).ToList();
-                
-                if (note.Count > 0 && note.First() != null)
+                var element = new TrackGridElementHolder(counter)
                 {
-                    element = new TrackGridElementHolder(counter, note.First());
-                }
-                else
-                {
-                    element = new TrackGridElementHolder(counter);
-
-                }
-
-                element.HorizontalAlignment = HorizontalAlignment.Left;
-                element.Margin = new Thickness(margin - elementGridWidth / 2f, 0, 0, 0);
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(margin - elementGridWidth / 2f, 0, 0, 0)
+                };
 
                 element.NoteAdded += OnNoteAdded;
                 element.NoteRemoved += OnNoteRemoved;
+
+                var note = notes.Where(n => n.Time == counter).ToList();
+                if (note.Count > 0 && note.First() != null)
+                    element.SetNote(note.First());
 
                 GridStackContainer.Children.Add(element);
 

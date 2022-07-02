@@ -234,6 +234,8 @@ namespace RythmPaperMapEditor.ViewModels
 
         private void WaveformOnNotesListChanged(List<Note> obj)
         {
+            Console.WriteLine(obj.Count);
+
             _notes = obj;
         }
 

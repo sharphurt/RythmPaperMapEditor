@@ -25,18 +25,14 @@ namespace RythmPaperMapEditor.Views.CustomControls
             _index = index;
         }
 
-        public TrackGridElementHolder(int index, Note note)
+        public void SetNote(Note note)
         {
-            InitializeComponent();
-
-            if (note.Time != index)
+            if (note.Time != _index)
             {
                 MessageBox.Show($"Error! Note loading error. Problems with note {note.Time}");
                 return;
             }
 
-            _containsNote = true;
-            _index = note.Time;
             SetState(note);
         }
 
@@ -84,7 +80,7 @@ namespace RythmPaperMapEditor.Views.CustomControls
                 NoteRemoved?.Invoke(_index);
                 _containsNote = false;
             }
-            else if (!_containsNote)
+            else if (!_containsNote && note.Type != NoteType.None)
             {
                 NoteAdded?.Invoke(note);
                 _containsNote = true;
